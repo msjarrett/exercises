@@ -1,30 +1,25 @@
 public class Day2b implements Exercise {
-  public void run(java.io.BufferedReader r) throws java.io.IOException {
+  public int run(java.util.stream.Stream<String> lines) {
     int depth = 0;
     int pos = 0;
     int aim = 0;
 
-    String line = r.readLine();
-    while (line != null) {
-      String[] components = line.split(" ");
-      if (components.length != 2) {
-        throw new IllegalArgumentException("Invalid line.");
+    java.util.Iterator<Day2Command> it = lines.map(line -> new Day2Command(line)).iterator();
+    while (it.hasNext()) {
+      Day2Command c = it.next();
+      switch (c.op) {
+        case FORWARD:
+          pos += c.distance;
+          depth += aim * c.distance;
+          break;
+        case DOWN:
+          aim += c.distance;
+          break;
+        case UP:
+          aim -= c.distance;
+          break;
       }
-      String command = components[0];
-      int distance = Integer.parseInt(components[1]);
-
-      if (command.equals("forward")) {
-        pos += distance;
-        depth += aim * distance;
-      } else if (command.equals("down"))
-        aim += distance;
-      else if (command.equals("up"))
-        aim -= distance;
-      else
-        throw new IllegalArgumentException("Invalid command: " + command);
-
-      line = r.readLine();
     }
-    System.out.println("" + (depth * pos));
+    return depth * pos;
   }
 }

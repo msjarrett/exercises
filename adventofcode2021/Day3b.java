@@ -3,17 +3,14 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class Day3b implements Exercise {
-  public void run(java.io.BufferedReader r) throws java.io.IOException {
-    // Pre-read everything.
-    ArrayList<String> samples = new ArrayList<String>();
-    String line;
-    while ((line = r.readLine()) != null)
-      samples.add(line);
+  public int run(java.util.stream.Stream<String> lines) {
+    // Pre-read everything since we need to stream it twice.
+    String[] samples = lines.toArray(String[]::new);
 
     // The data for o2 and co2 is by definition disjoint, no point processing together.
-    int o2rating = getRating(samples.stream(), true, 0);
-    int co2rating = getRating(samples.stream(), false, 0);
-    System.out.println("" + o2rating * co2rating);
+    int o2rating = getRating(java.util.Arrays.stream(samples), true, 0);
+    int co2rating = getRating(java.util.Arrays.stream(samples), false, 0);
+    return o2rating * co2rating;
   }
 
   private static int getRating(Stream<String> samples, boolean isMax, int accumulate) {

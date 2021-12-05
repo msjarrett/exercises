@@ -8,12 +8,12 @@ public class Main {
       return;
     }
 
-    Exercise exercise = null;
     try {
-      Class exerciseClass = Class.forName(args[0]);
+      Class<?> exerciseClass = Class.forName(args[0]);
       BufferedReader reader = new BufferedReader(new java.io.FileReader(args[1]));
-      exercise = (Exercise)exerciseClass.newInstance();
-      exercise.run(reader);
+      Exercise exercise = (Exercise)exerciseClass.getConstructor().newInstance();
+      int result = exercise.run(reader.lines());
+      System.out.println("" + result);
     } catch(Exception e) {
       System.err.println(e);
     }

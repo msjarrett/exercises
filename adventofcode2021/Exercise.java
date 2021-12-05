@@ -1,3 +1,3 @@
 public interface Exercise {
-  void run(java.io.BufferedReader r) throws java.io.IOException;
+  int run(java.util.stream.Stream<String> lines);
 }

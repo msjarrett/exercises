@@ -1,10 +1,14 @@
 public class Day3a implements Exercise {
-  public void run(java.io.BufferedReader r) throws java.io.IOException {
+  public int run(java.util.stream.Stream<String> lines) {
     // Count the number of 1's in each position.
-    String line = r.readLine();
-    int[] onesCount = new int[line.length()];
+    int[] onesCount = null;
     int samples = 0;
-    while (line != null) {
+    java.util.Iterator<String> it = lines.iterator();
+    while (it.hasNext()) {
+      String line = it.next();
+      if (onesCount == null) {
+        onesCount = new int[line.length()];
+      }
       samples++;
       for (int i = 0; i < onesCount.length; i++) {
         if (line.charAt(i) == '1')
@@ -12,7 +16,6 @@ public class Day3a implements Exercise {
         else if (line.charAt(i) != '0')
           throw new IllegalArgumentException("Invalid bit.");
       }
-      line = r.readLine();
     }
 
     // Epsilon and gamma are complements for the width of the number only.
@@ -30,6 +33,6 @@ public class Day3a implements Exercise {
       else
         throw new IllegalArgumentException("Ambiguous; equal prevalence of 1 and 0.");
     }
-    System.out.println("" + gamma * epsilon);
+    return gamma * epsilon;
   }
 }
