@@ -15,7 +15,7 @@ public class Main {
       int result = exercise.run(reader.lines());
       System.out.println("" + result);
     } catch(Exception e) {
-      System.err.println(e);
+      e.printStackTrace();
     }
   }
 }
