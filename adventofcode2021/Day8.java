@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day8 implements Exercise {
+public class Day8 implements Exercise2 {
   private static class SevenSegment {
     public SevenSegment(String value) {
       segments = value.toCharArray();
@@ -59,12 +59,11 @@ public class Day8 implements Exercise {
     validDigits = realDigits.keySet();
   }
 
-  public int run(java.util.stream.Stream<String> lines) {
-    List<Line> input = lines.map(line -> new Line(line)).collect(Collectors.toList());
-    return partB(input);
+  public void parse(java.util.stream.Stream<String> lines) {
+    input = lines.map(line -> new Line(line)).collect(Collectors.toList());
   }
 
-  public int partA(List<Line> input) {
+  public long partA() {
     int c = 0;
     int ln = 0;
     for (Line line : input) {
@@ -78,7 +77,7 @@ public class Day8 implements Exercise {
     return c;
   }
 
-  public int partB(List<Line> input) {
+  public long partB() {
     int total = 0;
     for (Line line : input) {
       HashMap<Character, Character> segmentMap =
@@ -129,6 +128,8 @@ public class Day8 implements Exercise {
     return null; // None of our child solutions worked.
   }
 
-  Map<String, Integer> realDigits;
-  Set<String> validDigits;
+  private List<Line> input;
+
+  private Map<String, Integer> realDigits;
+  private Set<String> validDigits;
 }

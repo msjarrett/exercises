@@ -1,18 +1,28 @@
-public class Day6 implements Exercise {
-  public int run(java.util.stream.Stream<String> lines) {
+public class Day6 implements Exercise2 {
+  public void parse(java.util.stream.Stream<String> lines) {
     // Each element is the count of fish at that age.
-    long[] fish = new long[9];
     java.util.Iterator<String> it = lines.iterator();
     String[] initialFish = it.next().split(",");
     if (it.hasNext())
       throw new IllegalArgumentException("Too many lines.");
 
     for (String s : initialFish) {
-      fish[Integer.parseInt(s)]++;
+      inputFish[Integer.parseInt(s)]++;
     }
+  }
+  
+  public long partA() {
+    return run(80);
+  }
 
+  public long partB() {
+    return run(256);
+  }
+
+  private long run(int generations) {
+    long[] fish = inputFish.clone();
     // Advance generations: 80 for part A, 256 for part B..
-    for (int gen = 0; gen < 256; gen++) {
+    for (int gen = 0; gen < generations; gen++) {
       long birthers = fish[0];
       for (int i = 0; i < (fish.length - 1); i++) {
         fish[i] = fish[i+1];
@@ -28,8 +38,7 @@ public class Day6 implements Exercise {
     for (long f : fish) {
       totalFish = safeAdd(totalFish, f);
     }
-    System.out.println("Override for long: " + totalFish);
-    return 0;
+    return totalFish;
   }
 
   private static long safeAdd(long a, long b) {
@@ -38,4 +47,6 @@ public class Day6 implements Exercise {
       throw new IllegalStateException("Overflow.");
     return result;
   }
+
+  private long[] inputFish = new long[9];
 }

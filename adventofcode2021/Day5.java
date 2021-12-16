@@ -1,7 +1,7 @@
 import java.util.regex.*;
 import java.util.stream.Collectors;
 
-public class Day5 implements Exercise {
+public class Day5 implements Exercise2 {
   private static class LineSegment {
     private static Pattern linePattern = Pattern.compile("(\\d+),(\\d+) -> (\\d+),(\\d+)");
 
@@ -74,22 +74,31 @@ public class Day5 implements Exercise {
     public int[][] board;
   }
 
-  public int run(java.util.stream.Stream<String> lines) {
-    java.util.List<LineSegment> segments = lines.map(s -> new LineSegment(s))
-        .collect(Collectors.toList());
-
-    int maxX = 0, maxY = 0;
+  public void parse(java.util.stream.Stream<String> lines) {
+    segments = lines.map(s -> new LineSegment(s)).collect(Collectors.toList());
+    maxX = 0; maxY = 0;
     for (LineSegment s : segments) {
       maxX = Math.max(maxX, s.x1);
       maxX = Math.max(maxX, s.x2);
       maxY = Math.max(maxY, s.y1);
       maxY = Math.max(maxY, s.y2);
     }
+    maxX++; maxY++;
+  }
 
-    Board b = new Board(++maxX, ++maxY);
+  public long partA() {
+    return run(false);
+  }
+
+  public long partB() {
+    return run(true);
+  }
+
+  private int run(boolean diagonal) {
+    Board b = new Board(maxX, maxY);
     for (LineSegment s : segments) {
       // For 5b, include diagonals.
-      b.markSegment(s, /*diagonals=*/true);
+      b.markSegment(s, diagonal);
     }
 
     int score = 0;
@@ -102,4 +111,7 @@ public class Day5 implements Exercise {
 
     return score;
   }
+
+  private int maxX, maxY;
+  java.util.List<LineSegment> segments;
 }
