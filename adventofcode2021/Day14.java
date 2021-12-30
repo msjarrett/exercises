@@ -69,16 +69,6 @@ public class Day14 implements Exercise2 {
 
     // Steps
     for (int i = 0; i < rounds; i++) {
-/*
-      // TEMP
-      KeyCounter<String> pairCounts = new KeyCounter<>();
-      for (int k = 1; k < template.length(); k++) {
-        pairCounts.increment(template.substring(k - 1, k + 1), 1L);
-      }
-      System.out.println(template);
-      System.out.println(pairCounts);
-      //TEMP
-*/
       StringBuilder sb = new StringBuilder();
       sb.append(template.charAt(0));
       for (int j = 1; j < template.length(); j++) {

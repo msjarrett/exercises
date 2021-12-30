@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 
 public class Main {
   public static void main(String[] args) {
@@ -25,6 +24,7 @@ public class Main {
           // Is ok.
         }
       }
+      reader.close();
     } catch(Exception e) {
       e.printStackTrace();
     }

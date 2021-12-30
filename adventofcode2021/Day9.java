@@ -63,41 +63,26 @@ public class Day9 implements Exercise2 {
         * basinSizes.get(basinSizes.size() - 3);
   }
 
-  private static class Point {
-    public Point(int i, int j) {
-      this.i = i;
-      this.j = j;
-    }
-
-    public int i, j;
-  }
-
   int exploreBasin(int i, int j) {
     int points = 0;
     boolean[][] explored = new boolean[rows][cols];
     Queue<Point> search = new ArrayDeque<>();
-    search.add(new Point(i, j));
-
+    search.add(new Point(j, i));
     while (!search.isEmpty()) {
       Point p = search.remove();
 
       // This point may have already been explored since it was added.
-      if (explored[p.i][p.j]) continue;
+      if (explored[p.y][p.x]) continue;
 
       // We checked all other validity before queueing.
       points++;
-      explored[p.i][p.j] = true;
+      explored[p.y][p.x] = true;
 
-      ArrayList<Point> toExplore = new ArrayList<>();
-      if (p.i > 0) toExplore.add(new Point(p.i - 1, p.j));
-      if (p.i < (rows - 1)) toExplore.add(new Point(p.i + 1, p.j));
-      if (p.j > 0) toExplore.add(new Point(p.i, p.j - 1));
-      if (p.j < (cols - 1)) toExplore.add(new Point(p.i, p.j + 1));
-
+      List<Point> toExplore = p.adjacentCardinal(cols, rows);
       for (Point p2 : toExplore) {
-        if (explored[p2.i][p2.j]) continue;
-        if (heightMap[p2.i][p2.j] == '9') continue;
-        if (heightMap[p2.i][p2.j] <= heightMap[p.i][p.j]) continue;
+        if (explored[p2.y][p2.x]) continue;
+        if (heightMap[p2.y][p2.x] == '9') continue;
+        if (heightMap[p2.y][p2.x] <= heightMap[p.y][p.x]) continue;
         search.add(p2);
       }
     }
