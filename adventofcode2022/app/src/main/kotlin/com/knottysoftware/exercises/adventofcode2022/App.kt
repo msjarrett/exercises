@@ -33,8 +33,10 @@ fun runExercise(exercise: Exercise, input: Sequence<String>) {
     }
 }
 
-fun main() {
-    val file = File("/mnt/d/Development/Github/exercises/adventofcode2022/input1.txt")
+fun main(args: Array<String>) {
+    var filename = "input.txt"
+    if (args.size == 1) filename = args[0]
+    val file = File("/mnt/d/Development/Github/exercises/adventofcode2022/${filename}")
     val exercise = Day1()
     file.useLines {lines -> runExercise(exercise, lines) }
 }
