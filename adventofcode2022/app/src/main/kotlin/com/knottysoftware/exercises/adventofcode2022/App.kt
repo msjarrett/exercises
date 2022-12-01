@@ -34,7 +34,7 @@ fun runExercise(exercise: Exercise, input: Sequence<String>) {
 }
 
 fun main() {
-    val file = File("/mnt/d/Development/Github/exercises/adventofcode2022/input.txt")
-    val exercise = TestExercise()
+    val file = File("/mnt/d/Development/Github/exercises/adventofcode2022/input1.txt")
+    val exercise = Day1()
     file.useLines {lines -> runExercise(exercise, lines) }
 }
