@@ -1,6 +1,5 @@
 package com.knottysoftware.exercises.adventofcode2022;
 
-/** Dummy exercise to validate runExercise logic. */
 class Day1 : Exercise {
     lateinit var elves: List<List<Int>>
 
