@@ -27,7 +27,6 @@ private fun winner(move: Move, response: Move) =
         }
     }
 
-
 private fun moveForChar(move: Char) = when (move) {
     'A' -> Move.ROCK
     'B' -> Move.PAPER
