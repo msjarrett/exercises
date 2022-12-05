@@ -44,10 +44,8 @@ class Day5 : Exercise {
     override fun partOne(): Long {
         // Execute moves.
         val stacks = this.stacks.map { ArrayDeque(it) }
-        for (move in moves) {
-            repeat(move.count) {
-                stacks[move.dest].addLast(stacks[move.source].removeLast())
-            }
+        for ((count, source, dest) in moves) {
+            repeat(count) { stacks[dest].addLast(stacks[source].removeLast()) }
         }
 
         println(stacks.map { it.last() }.joinToString(separator = ""))
@@ -56,9 +54,9 @@ class Day5 : Exercise {
 
     override fun partTwo(): Long {
         val stacks = this.stacks.map { ArrayDeque(it) }
-        for (move in moves) {
-            stacks[move.dest].addAll(stacks[move.source].takeLast(move.count))
-            repeat(move.count) { stacks[move.source].removeLast() }
+        for ((count, source, dest) in moves) {
+            stacks[dest].addAll(stacks[source].takeLast(count))
+            repeat(count) { stacks[source].removeLast() }
         }
 
         println(stacks.map { it.last() }.joinToString(separator = ""))

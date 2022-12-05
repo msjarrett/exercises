@@ -4,8 +4,10 @@ https://adventofcode.com/2022
 
 For 2022, I will be focusing exclusively on Kotlin development, because work
 reasons. Other than doing a few of the Kotlin Koans, I'm completely new to the
-language, so spending most of my time learning the features.
+language, so spending most of my time searching class documentation.
 
+I discovered that JetBrains is running a [contest](https://blog.jetbrains.com/kotlin/2022/11/advent-of-code-2022-in-kotlin/)
+as well. Maybe I can win something nice...
 
 What I learned about Kotlin for each day:
 
@@ -24,5 +26,3 @@ What I learned about Kotlin for each day:
   But got to play with `Regex`, and also destructuring (both the regex match
   and data classes), and some more esoteric List manipulation (including
   `buildList` that led me down the "receivers" rabbit hole).
-
-
