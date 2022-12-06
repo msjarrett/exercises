@@ -26,3 +26,5 @@ What I learned about Kotlin for each day:
   But got to play with `Regex`, and also destructuring (both the regex match
   and data classes), and some more esoteric List manipulation (including
   `buildList` that led me down the "receivers" rabbit hole).
+* Day 6: Going to play with arrays, but they don't work with "reified type parameters". Otherwise
+  pretty normal algorithm.
