@@ -28,3 +28,12 @@ What I learned about Kotlin for each day:
   `buildList` that led me down the "receivers" rabbit hole).
 * Day 6: Going to play with arrays, but they don't work with "reified type parameters". Otherwise
   pretty normal algorithm.
+* Day 7: Built trees with Kotlin! A few nullables. I was late to start, so I'll have to come back
+  and clean up later.
+    * I was unhappy with the four regexes checked procedurally. I feel there is some cleaner solution
+      with `sealed class` but I'll have to experiment with this later.
+    * I was hoping for a more Kotlin-y way to flatten a tree, while not spamming new lists on the
+      heap. There seems to be at least a few options to pursue here, and at least I can try to
+      work in `tailrec`.
+     
+      
