@@ -35,5 +35,6 @@ What I learned about Kotlin for each day:
     * I was hoping for a more Kotlin-y way to flatten a tree, while not spamming new lists on the
       heap. There seems to be at least a few options to pursue here, and at least I can try to
       work in `tailrec`.
-     
+* Day 8: Kotlin Arrays are the WORST! I did a simple 2D array solution to start, but then started
+  breaking down into functions and actually using a few lambdas.
       
