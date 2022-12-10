@@ -37,4 +37,8 @@ What I learned about Kotlin for each day:
       work in `tailrec`.
 * Day 8: Kotlin Arrays are the WORST! I did a simple 2D array solution to start, but then started
   breaking down into functions and actually using a few lambdas.
+* Day 9: I tried to be smart by using an immutable data class. But without enforced usage of
+  return values, oops, all the bugs.
+* Day 10: Meh. Some lambdas.
+
       
