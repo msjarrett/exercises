@@ -40,5 +40,8 @@ What I learned about Kotlin for each day:
 * Day 9: I tried to be smart by using an immutable data class. But without enforced usage of
   return values, oops, all the bugs.
 * Day 10: Meh. Some lambdas.
-
+* Day 11: This problem was unusually complex! Due to int pairs, I thought I'd get creative with
+  value classes. But no, they were ok for `MonkeyId` but a big pain for `Item` since we have to
+  do math on them (thus using the fake property). Used `inner` for the first time; nice improvement
+  over Java. Definitely realizing I need to improve my infra.
       
