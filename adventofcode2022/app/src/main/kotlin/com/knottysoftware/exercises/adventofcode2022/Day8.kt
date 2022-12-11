@@ -31,7 +31,7 @@ class Day8 : Exercise {
         this.height = trees.size
     }
 
-    override fun partOne(): Long {
+    override fun partOne(): Int {
         val visible = Array<BooleanArray>(height) { BooleanArray(width) { false }}
 
         fun findVisible(x: Int, y: Int, dx: Int, dy: Int) {
@@ -55,10 +55,10 @@ class Day8 : Exercise {
             findVisible(x, height - 1, 0, -1)  // Approach from bottom
         }
         
-        return visible.sumOf { it.count { it == true } }.toLong()
+        return visible.sumOf { it.count { it == true } }
     }
 
-    override fun partTwo(): Long {
+    override fun partTwo(): Int {
         var score = 0
 
         // Brute force...
@@ -93,6 +93,6 @@ class Day8 : Exercise {
                 score = max(score, treesUp * treesDown * treesLeft * treesRight)
             }
         }
-        return score.toLong()
+        return score
     }
 }

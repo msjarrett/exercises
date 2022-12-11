@@ -39,10 +39,10 @@ class Day6 : Exercise {
     private lateinit var input: String
 
     override fun parse(lines: Sequence<String>) {
-        input = lines.first()
+        input = lines.single()
     }
 
-    private fun uniqueIndex(size: Int): Long {
+    private fun uniqueIndex(size: Int): Int {
         // The problem 1-indexes, but the first marker is AFTER that character, so it evens out.
         var i = 0
         val buf = RotatingBuffer<Char>(size)
@@ -52,9 +52,9 @@ class Day6 : Exercise {
             if (buf.allUnique() && i >= size) break
         }
         println("$buf")
-        return i.toLong()
+        return i
     }
 
-    override fun partOne(): Long = uniqueIndex(4)
-    override fun partTwo(): Long = uniqueIndex(14) 
+    override fun partOne(): Int = uniqueIndex(4)
+    override fun partTwo(): Int = uniqueIndex(14) 
 }

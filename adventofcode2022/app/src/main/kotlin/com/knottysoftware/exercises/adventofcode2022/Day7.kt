@@ -5,6 +5,17 @@ class Day7 : Exercise {
         val subdirs = mutableListOf<Directory>()
         val files = mutableListOf<Pair<String, Long>>()
         var transitiveSize: Long = 0
+
+        fun print(indent: Int = 0) {
+            // Was trying to help debug, but everyone gets a different solution anyways.
+            repeat(indent) { print(" ") }
+            println("- $name")
+            for (d in subdirs) d.print(indent + 2)
+            for (f in files) {
+                repeat(indent + 2) { print(" ") }
+                println("- ${f.first}, ${f.second}")
+            }
+        }
     }
 
     private fun flatten(root: Directory, list: MutableList<Directory>) {
@@ -68,6 +79,8 @@ class Day7 : Exercise {
             }
             require(false) // No regex matched
         }
+
+        //root.print()
     }
 
     override fun partOne(): Long {

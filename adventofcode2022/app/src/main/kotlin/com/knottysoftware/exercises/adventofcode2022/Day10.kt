@@ -1,5 +1,7 @@
 package com.knottysoftware.exercises.adventofcode2022
 
+import kotlin.text.StringBuilder
+
 class Day10 : Exercise {
     enum class Op {
         NOOP, ADDX
@@ -48,47 +50,9 @@ class Day10 : Exercise {
             }
 
         }
-
     }
 
-    override fun partOne(): Long {
-/*        var x = 1
-        var cycle = 0
-        var burnCycles = 0
-        var signalSum: Long = 0
-
-        var nextAssignCycle = 0
-        var nextAssignValue = 0
-
-        val iOp = opcodes.iterator()
-        while (cycle < 220) {            
-            cycle++
-            // Process the instruction, unless we're burning cycles
-            if (burnCycles > 0) {
-                //println("$cycle burned")
-                burnCycles--
-            } else if (iOp.hasNext()) {                
-                val op = iOp.next()
-                if (op.first == Op.ADDX) {
-                    //println("$cycle add %{op.second}")
-                    nextAssignCycle = cycle + 1
-                    nextAssignValue = x + op.second
-                    burnCycles = 1
-                }
-            }
-
-            // Check signal strength
-            if (((cycle - 20) % 40) == 0) {
-                signalSum += cycle * x
-            }
-
-            // Value is assigned at end of cycle
-            if (cycle == nextAssignCycle) {
-                x = nextAssignValue
-                //println("$cycle END X = %x")
-            }
-
-        }*/
+    override fun partOne(): Int {
         var signalSum = 0
         execute { cycle: Int, x: Int ->
             if (((cycle - 20) % 40) == 0) {
@@ -96,58 +60,21 @@ class Day10 : Exercise {
             }            
         }
 
-        return signalSum.toLong()
+        return signalSum
     }
 
-    override fun partTwo(): Long {
-        /*var cycle = 0
-        var burnCycles = 0
-        var nextAssignCycle = 0
-        var nextAssignValue = 0
-        var x = 1
-
-        var line = ""
-
-        val iOp = opcodes.iterator()
-        while (iOp.hasNext()) {
-            cycle++
-            // Process the instruction, unless we're burning cycles
-            if (burnCycles > 0) {
-                burnCycles--
-            } else if (iOp.hasNext()) {                
-                val op = iOp.next()
-                if (op.first == Op.ADDX) {
-                    //println("$cycle add %{op.second}")
-                    nextAssignCycle = cycle + 1
-                    nextAssignValue = x + op.second
-                    burnCycles = 1
-                }
-            }
-
-            // Render a pixel
-            if (((x - 1) .. (x + 1)).contains(line.length)) line = line + "#"
-            else line = line + "."
-            if (line.length == 40) {
-                println(line)
-                line = ""
-            }
-
-
-            // Value is assigned at end of cycle
-            if (cycle == nextAssignCycle) {
-                x = nextAssignValue
-                //println("$cycle END X = %x")
-            }
-        }*/
-        var line = ""
+    override fun partTwo(): String {
+        val output = StringBuilder("\n")
+        val line = StringBuilder()
         execute { _: Int, x: Int ->
-            if (((x - 1) .. (x + 1)).contains(line.length)) line = line + "#"
-            else line = line + "."
+            if (((x - 1) .. (x + 1)).contains(line.length)) line.append('#')
+            else line.append('.')
             if (line.length == 40) {
-                println(line)
-                line = ""
+                output.append(line)
+                output.append('\n')
+                line.clear()
             }
         }
-        return 0
+        return output.toString()
     }
 }

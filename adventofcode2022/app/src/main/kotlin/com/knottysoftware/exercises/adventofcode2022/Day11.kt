@@ -56,6 +56,7 @@ class Day11 : Exercise {
     private final val testRegex = Regex("""Test: divisible by (\d+)""")
     private final val truefalseRegex = Regex("""If (true|false): throw to monkey (\d+)""")
 
+    override fun needReparse() = true   // Monkey is mutable; our initial state is lost.
     override fun parse(lines: Sequence<String>) {
         var lcm : Int = 1
         val monkeys = mutableListOf<Monkey>()
@@ -99,8 +100,7 @@ class Day11 : Exercise {
     }
 
 
-    override fun partOne(): Long {
-        return 0
+    override fun partOne(): Int {
         repeat (20) {
             for (monkey in monkeys) {
                 val doThrows = monkey.turn(worryReduce = true)
@@ -109,7 +109,7 @@ class Day11 : Exercise {
                 }
             }
         }
-        return monkeys.map { it.inspectCount }.sortedDescending().take(2).fold(1) { acc, value -> acc * value }.toLong()
+        return monkeys.map { it.inspectCount }.sortedDescending().take(2).fold(1) { acc, value -> acc * value }
     }
 
     override fun partTwo(): Long {
@@ -121,7 +121,6 @@ class Day11 : Exercise {
                 }
             }
         }
-
         return monkeys.map { it.inspectCount.toLong() }.sortedDescending().take(2).fold(1L) { acc, value -> acc * value }.toLong()
     }
 }

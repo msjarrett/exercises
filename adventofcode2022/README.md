@@ -44,4 +44,12 @@ What I learned about Kotlin for each day:
   value classes. But no, they were ok for `MonkeyId` but a big pain for `Item` since we have to
   do math on them (thus using the fake property). Used `inner` for the first time; nice improvement
   over Java. Definitely realizing I need to improve my infra.
-      
+* (adding an app overhaul)
+    * Get rid of all the `toLong()` stuff. The interface can use `Any`, then I can return `Int`, `Long`
+      or even `String` for some of the problems.
+    * Adding a reparse method. This was needed for Day 11, and benefits anything that has a large input
+      that could potentially be streamed instead of being held in memory.
+    * Update Kotlin version (I updated with sdkman, but Gradle pulls its own). This eliminated some
+      `RequireOptIn` warnings.
+    * Figured out "resources", rather than hard-coding my local data path.
+    * Added a simple regression test for the first few days.

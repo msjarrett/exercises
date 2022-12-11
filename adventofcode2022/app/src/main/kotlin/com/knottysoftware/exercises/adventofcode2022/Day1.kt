@@ -20,11 +20,6 @@ class Day1 : Exercise {
         this.elves = elves    
     }
 
-    override fun partOne(): Long {
-        return elves.map { it.sum() }.maxOrNull()!!.toLong()
-    }
-
-    override fun partTwo(): Long {
-        return elves.map { it.sum() }.sortedDescending().take(3).sum().toLong()
-    }
+    override fun partOne() = elves.map { it.sum() }.maxOrNull()!!
+    override fun partTwo() = elves.map { it.sum() }.sortedDescending().take(3).sum()
 }

@@ -44,7 +44,7 @@ class Day9 : Exercise {
         return tail    
     }
 
-    override fun partOne(): Long {
+    override fun partOne(): Int {
         var head = Point()
         var tail = Point()
         val visited = mutableSetOf<Point>()
@@ -57,10 +57,10 @@ class Day9 : Exercise {
                 visited.add(tail)
             }
         }
-        return visited.size.toLong()
+        return visited.size
     }
 
-    override fun partTwo(): Long {
+    override fun partTwo(): Int {
         val rope = MutableList(10) { Point() }
         val visited = mutableSetOf<Point>()
 
@@ -74,6 +74,6 @@ class Day9 : Exercise {
                 visited.add(rope.last())
             }
         }
-        return visited.size.toLong()
+        return visited.size
     }
 }
