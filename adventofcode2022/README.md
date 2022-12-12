@@ -53,3 +53,4 @@ What I learned about Kotlin for each day:
       `RequireOptIn` warnings.
     * Figured out "resources", rather than hard-coding my local data path.
     * Added a simple regression test for the first few days.
+* Day 12: Easy BFS. Mostly just ignored arrays. Got to reuse my earlier `Point`.

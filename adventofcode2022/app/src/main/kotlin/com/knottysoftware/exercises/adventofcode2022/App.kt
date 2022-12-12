@@ -48,6 +48,6 @@ fun runOne(filename: String, exercise: Exercise) {
     }
 }
 
-fun main() {
-    runOne("input.txt", Day1())
+fun main(args: Array<String>) {
+    runOne(args[0] + "12" + ".txt", Day12())
 }
