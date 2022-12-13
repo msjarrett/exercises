@@ -54,3 +54,6 @@ What I learned about Kotlin for each day:
     * Figured out "resources", rather than hard-coding my local data path.
     * Added a simple regression test for the first few days.
 * Day 12: Easy BFS. Mostly just ignored arrays. Got to reuse my earlier `Point`.
+* Day 13: All the Kotlin stuff! `sealed class` for nodes, labelled break, a bona fide flatten, a sort,
+  type-casting, even a nullable Boolean as a trinary flag. The parse took awhile, but the implementation code was
+  beautifully expressive.
