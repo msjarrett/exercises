@@ -52,8 +52,8 @@ class Day14 : Exercise {
                 return false
             }
             else if (!tiles.contains(p.move(Direction.DOWN))) p = p.move(Direction.DOWN)
-            else if (!tiles.contains(p.move(Direction.DOWN).move(Direction.LEFT))) p = p.move(Direction.DOWN).move(Direction.LEFT)
-            else if (!tiles.contains(p.move(Direction.DOWN).move(Direction.RIGHT))) p = p.move(Direction.DOWN).move(Direction.RIGHT)
+            else if (!tiles.contains(p.move(Direction.DOWNLEFT))) p = p.move(Direction.DOWNLEFT)
+            else if (!tiles.contains(p.move(Direction.DOWNRIGHT))) p = p.move(Direction.DOWNRIGHT)
             else {
                 // Settled sand
                 tiles.add(p)

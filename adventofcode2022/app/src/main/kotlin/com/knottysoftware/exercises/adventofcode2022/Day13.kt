@@ -74,12 +74,12 @@ class Day13 : Exercise {
         }
     }
 
-    override fun partOne(): Int = packetPairs.withIndex().map {
-        if (isInOrder(it.value.first, it.value.second)!!) {
-            //println("Match ${it.index + 1}")
-            it.index + 1
+    override fun partOne(): Int = packetPairs.withIndex().sumOf { (index, value) ->
+        if (isInOrder(value.first, value.second)!!) {
+            //println("Match ${index + 1}")
+            index + 1
         } else 0
-    }.sum()
+    }
 
     override fun partTwo(): Int {
         val newList = mutableListOf<ListNode>()
