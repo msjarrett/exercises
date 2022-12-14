@@ -58,3 +58,5 @@ What I learned about Kotlin for each day:
   type-casting, even a nullable Boolean as a trinary flag. The parse took awhile, but the implementation code was
   beautifully expressive.
 * Day 14: Reused `Point` again.
+* Got the [ktfmt gradle plugin](https://github.com/cortinico/ktfmt-gradle) installed! It added a lot
+  of newlines, and stripped lingering semicolons.
