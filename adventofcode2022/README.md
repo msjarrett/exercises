@@ -60,3 +60,6 @@ What I learned about Kotlin for each day:
 * Day 14: Reused `Point` again.
 * Got the [ktfmt gradle plugin](https://github.com/cortinico/ktfmt-gradle) installed! It added a lot
   of newlines, and stripped lingering semicolons.
+* Day 15: Part 1 was easy enough, but the trivial solution to part B is 16Tb allocation. So went with rows of
+  `List<IntRange>`. This STILL OOMs in tests, but generates a solution. `IntRange` is still useless.
+  AoC was kinda a jerk for putting input data in the problem statement instead of the input.txt.

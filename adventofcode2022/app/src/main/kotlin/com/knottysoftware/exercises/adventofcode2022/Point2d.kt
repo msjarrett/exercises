@@ -1,5 +1,7 @@
 package com.knottysoftware.exercises.adventofcode2022
 
+import kotlin.math.abs
+
 enum class Direction {
   UP,
   UPRIGHT,
@@ -32,4 +34,6 @@ data class Point(val x: Int = 0, val y: Int = 0) {
     }
     return null
   }
+
+  fun manhattanDistanceTo(dest: Point): Int = abs(x - dest.x) + abs(y - dest.y)
 }
