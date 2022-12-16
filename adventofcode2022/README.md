@@ -63,3 +63,16 @@ What I learned about Kotlin for each day:
 * Day 15: Part 1 was easy enough, but the trivial solution to part B is 16Tb allocation. So went with rows of
   `List<IntRange>`. This STILL OOMs in tests, but generates a solution. `IntRange` is still useless.
   AoC was kinda a jerk for putting input data in the problem statement instead of the input.txt.
+* Day 16: Wow the adventure.
+    * First, the regexes, great for matching text, but adding plurals was sneaky until I noticed it.
+    * Implemented a search of the entire space. This obviously blew up for size.
+    * Added a variety of pruning solutions to prevent revisiting nodes before releasing pressure. This was
+      enough to get past part one.
+    * No amount of pruning made this good enough for part 2. So by doing Dijstra's algorithm from each node,
+      I could reduce the graph down from 58 nodes to 16 nodes with costed edges. This was much faster, but
+      a BFS even over the reduced graph would run out of memory quickly.
+    * DFS could run without taxing memory indefinitely, but would invariably end up low. But after about 16
+      minutes of compute, **found an acceptable answer**.
+    * Giving up for now. TODO: consider reintroducing score filter. Consider priority search.
+
+      
