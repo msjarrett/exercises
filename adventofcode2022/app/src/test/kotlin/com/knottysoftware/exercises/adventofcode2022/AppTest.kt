@@ -16,6 +16,17 @@ fun runExercise(
       if (doPartTwo) exercise.partTwo().toString() else "")
 }
 
+fun runPartOneOnly(filename: String, exercise: Exercise): String {
+  val file = File(exercise.javaClass.classLoader.getResource(filename).toURI())
+  var partOne = ""
+
+  file.useLines { lines ->
+    val (p1, _) = runExercise(exercise, lines, doPartTwo = false)
+    partOne = p1
+  }
+  return partOne
+}
+
 fun runOne(filename: String, exercise: Exercise): Pair<String, String> {
   val file = File(exercise.javaClass.classLoader.getResource(filename).toURI())
   var partOne = ""
@@ -55,7 +66,14 @@ class AppTest {
   @Test fun day12() = assertEquals(runOne("input12.txt", Day12()), Pair("383", "377"))
   @Test fun day13() = assertEquals(runOne("input13.txt", Day13()), Pair("5806", "23600"))
   @Test fun day14() = assertEquals(runOne("input14.txt", Day14()), Pair("964", "32041"))
+
   // TODO: Find out why this OOMs.
-  // @Test fun day15() = assertEquals(runOne("input15.txt", Day15()), Pair("5878678",
-  // "11796491041245"))
+  @Test
+  fun day15() =
+      assertEquals(runPartOneOnly("input15.txt", Day15()), "5878678") // partTwo = 11796491041245
+
+  // Part 2 takes about 2 minutes to run.
+  @Test fun day16() = assertEquals(runPartOneOnly("input16.txt", Day16()), "1488") // partTwo = 2111
+
+  @Test fun day17() = assertEquals(runOne("input17.txt", Day17()), Pair("3186", "1566376811584"))
 }

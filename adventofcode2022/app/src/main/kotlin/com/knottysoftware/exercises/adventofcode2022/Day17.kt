@@ -3,15 +3,15 @@ package com.knottysoftware.exercises.adventofcode2022
 class Day17 : Exercise {
   companion object {
     const val WIDTH = 7
-    final val SHAPES = listOf(
-      listOf( Point(2,0), Point(3,0), Point(4,0), Point(5,0)),  // ---
-      listOf( Point(3,0), Point(2,1), Point(3,1), Point(4,1), Point(3,2)),  // +
-      listOf( Point(4,2), Point(4,1), Point(4,0), Point(3,0), Point(2,0)),  // Backwards L
-      listOf( Point(2,0), Point(2,1), Point(2,2), Point(2,3)),  // |
-      listOf( Point(2,0), Point(2,1), Point(3,0), Point(3,1)),  // o
-    )
+    final val SHAPES =
+        listOf(
+            listOf(Point(2, 0), Point(3, 0), Point(4, 0), Point(5, 0)), // ---
+            listOf(Point(3, 0), Point(2, 1), Point(3, 1), Point(4, 1), Point(3, 2)), // +
+            listOf(Point(4, 2), Point(4, 1), Point(4, 0), Point(3, 0), Point(2, 0)), // Backwards L
+            listOf(Point(2, 0), Point(2, 1), Point(2, 2), Point(2, 3)), // |
+            listOf(Point(2, 0), Point(2, 1), Point(3, 0), Point(3, 1)), // o
+        )
   }
-
 
   private lateinit var blows: List<Direction>
 
@@ -21,21 +21,32 @@ class Day17 : Exercise {
     private var offset = Point(0, yStart)
 
     fun points() = points.map { Point(it.x + offset.x, it.y + offset.y) }
-    fun testFor(dir: Direction, test: (p: Point) -> Boolean) = points.map { it.move(dir) }.map { Point(it.x + offset.x, it.y + offset.y)}.all { test(it) }
+    fun testFor(dir: Direction, test: (p: Point) -> Boolean) =
+        points.map { it.move(dir) }.map { Point(it.x + offset.x, it.y + offset.y) }.all { test(it) }
 
-    fun move(dir: Direction) { offset = offset.move(dir) }
+    fun move(dir: Direction) {
+      offset = offset.move(dir)
+    }
   }
 
   override fun parse(lines: Sequence<String>) {
-    blows = lines.single().map { when(it) {
-      '>' -> Direction.RIGHT
-      '<' -> Direction.LEFT
-      else -> throw IllegalArgumentException()
-    }}
+    blows =
+        lines.single().map {
+          when (it) {
+            '>' -> Direction.RIGHT
+            '<' -> Direction.LEFT
+            else -> throw IllegalArgumentException()
+          }
+        }
   }
 
-  inner class State(val space: MutableList<BooleanArray> = mutableListOf<BooleanArray>(), var iShape: Int = 0, var iBlow: Int = 0) {
-    val size: Int get() = space.size
+  inner class State(
+      val space: MutableList<BooleanArray> = mutableListOf<BooleanArray>(),
+      var iShape: Int = 0,
+      var iBlow: Int = 0
+  ) {
+    val size: Int
+      get() = space.size
     var dropped = 0
 
     fun run(count: Int) {
@@ -47,7 +58,7 @@ class Day17 : Exercise {
         return true
       }
 
-      repeat (count) {
+      repeat(count) {
         dropped++
 
         // Last occupied row is space.size - 1.
@@ -58,7 +69,7 @@ class Day17 : Exercise {
           // Blow by jet
           val blow = blows[iBlow++]
           iBlow %= blows.size
-          if (shape.testFor(blow) { isValidPoint(it)}) shape.move(blow)
+          if (shape.testFor(blow) { isValidPoint(it) }) shape.move(blow)
 
           // Drop or settle
           if (shape.testFor(Direction.UP) { isValidPoint(it) }) {
@@ -76,7 +87,7 @@ class Day17 : Exercise {
 
     fun print(rows: Int = space.size) {
       println("")
-      for (i in (size-1) downTo (size - rows)) {
+      for (i in (size - 1) downTo (size - rows)) {
         print("|")
         for (s in space[i]) {
           if (s) print("#") else print(" ")
@@ -95,9 +106,9 @@ class Day17 : Exercise {
 
   fun simulate1() {
     val state = State()
-    
-    var lastBlowIndex = 0;
-    repeat (20) {
+
+    var lastBlowIndex = 0
+    repeat(20) {
       while (true) {
         state.run(SHAPES.size)
 
@@ -109,12 +120,11 @@ class Day17 : Exercise {
       }
       println("iBlow wrapped: value = $lastBlowIndex  rocks = ${state.dropped}")
     }
-    
   }
 
   fun simulate2() {
     val state = State()
-    
+
     var lastHeight = 0
     repeat(20) {
       val blockSize = 1755
@@ -127,21 +137,22 @@ class Day17 : Exercise {
 
   override fun partTwo(): Long {
     // Test data: 1 000 000 000 000 rocks. -> 1 514 285 714 288 rows.
-    println ("BLOWS = ${blows.size}  SHAPES = ${SHAPES.size}")
-    //simulate1()
-    //return 0
+    println("BLOWS = ${blows.size}  SHAPES = ${SHAPES.size}")
+    // simulate1()
+    // return 0
 
     val state = State()
     val blockSize = 1725
 
     println("Simulating first ten blocks.")
 
-    // We assume there's a repeating pattern after the first block, but the first block could be larger.
+    // We assume there's a repeating pattern after the first block, but the first block could be
+    // larger.
     state.run(6895)
     println("BLOCK 1")
     state.print(10)
     val firstBlockHeight = state.size
-    
+
     state.run(blockSize)
     println("BLOCK 2")
     state.print(10)
@@ -149,7 +160,7 @@ class Day17 : Exercise {
 
     // Simulate 8 more to confirm a valid block size.
     var lastHeight = state.size
-    repeat (8) {
+    repeat(8) {
       state.run(blockSize)
       val nextSize = state.size - lastHeight
       lastHeight = state.size

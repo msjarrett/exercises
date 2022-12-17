@@ -1,7 +1,5 @@
 package com.knottysoftware.exercises.adventofcode2022
 
-import kotlin.collections.ArrayDeque
-
 class Day12 : Exercise {
   private lateinit var map: List<List<Int>>
 
@@ -43,11 +41,8 @@ class Day12 : Exercise {
     // BFS to victory, will give optimal route
     val visited = Array<Array<Boolean>>(height) { Array<Boolean>(width) { false } }
 
-    val queue = ArrayDeque<Pair<Point, Int>>()
-    queue.add(Pair(start, 0))
-
-    while (!queue.isEmpty()) {
-      val next = queue.removeFirst()
+    val queue = SearchQueue<Pair<Point, Int>>(Pair(start, 0))
+    for (next in queue) {
       val pos = next.first
       if (visited[pos.y][pos.x]) continue
       visited[pos.y][pos.x] = true // Prevent immediate backtrack
@@ -67,7 +62,7 @@ class Day12 : Exercise {
         if (visited[c.y][c.x]) continue
         if (!testMove(c, pos)) continue
 
-        queue.add(Pair(c, next.second + 1))
+        queue.addBFS(Pair(c, next.second + 1))
       }
     }
 

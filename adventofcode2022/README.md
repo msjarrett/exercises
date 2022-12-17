@@ -73,6 +73,10 @@ What I learned about Kotlin for each day:
       a BFS even over the reduced graph would run out of memory quickly.
     * DFS could run without taxing memory indefinitely, but would invariably end up low. But after about 16
       minutes of compute, **found an acceptable answer**.
-    * Giving up for now. TODO: consider reintroducing score filter. Consider priority search.
+    * Giving up for now.
+    * Post-Day 17, went back and added informed search and score filtering. Now down to 2 minutes.
+* Day 17: Pretty proud of part 1. Good simulator using existing point logic, properties, and constructors.
+  Part 2 is a mess, pretty much every solution I've seen people just find block sizes through informed guessing.
+* Went back and made a `SearchQueue` to specialize what I've been doing with ArrayDeque.
 
       
