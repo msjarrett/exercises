@@ -78,5 +78,14 @@ What I learned about Kotlin for each day:
 * Day 17: Pretty proud of part 1. Good simulator using existing point logic, properties, and constructors.
   Part 2 is a mess, pretty much every solution I've seen people just find block sizes through informed guessing.
 * Went back and made a `SearchQueue` to specialize what I've been doing with ArrayDeque.
+* Day 18: I kept expecting this to explode into a giant search space. But naive 3d-grid searching worked for both
+  parts in trivially short runtimes.
+* Day 19: I'll come back to this. I can't get part 1 to run in a reasonable runtime. Greedy is obviously problematic,
+  and search appears to explode.
+* Day 20: I initially got distracted by Arrays (which are still awful). Then I realized it was a double-linked-list
+  problem. Then I struggled with the behavior of the list head, until I realized that they start from the element
+  with value 0, which makes the choice of head purely cosmetic. Then it was trivial.
+    * Part 2, I only ever apply the key in the final result and during shifts. I do not trust Kotlin int math;
+      they will happily overflow or underflow with no warning at all, which seems insane for a modern language.
 
       
