@@ -77,11 +77,16 @@ What I learned about Kotlin for each day:
     * Post-Day 17, went back and added informed search and score filtering. Now down to 2 minutes.
 * Day 17: Pretty proud of part 1. Good simulator using existing point logic, properties, and constructors.
   Part 2 is a mess, pretty much every solution I've seen people just find block sizes through informed guessing.
+  Even a few days later, most people seem to be looking, fairly adhoc, for the cycle.
 * Went back and made a `SearchQueue` to specialize what I've been doing with ArrayDeque.
 * Day 18: I kept expecting this to explode into a giant search space. But naive 3d-grid searching worked for both
   parts in trivially short runtimes.
 * Day 19: I'll come back to this. I can't get part 1 to run in a reasonable runtime. Greedy is obviously problematic,
   and search appears to explode.
+    * Mutability really burned me - `copy()` is shallow even for nested data classes!
+    * After Day 20 I got this to work. I'm still not sure how - even without pruning, simply changing the search
+      order dramatically improved runtime, which it shouldn't. For part 2 I implemented a really cheap pruning
+      which was enough to solve the problem, albeit slowly.
 * Day 20: I initially got distracted by Arrays (which are still awful). Then I realized it was a double-linked-list
   problem. Then I struggled with the behavior of the list head, until I realized that they start from the element
   with value 0, which makes the choice of head purely cosmetic. Then it was trivial.

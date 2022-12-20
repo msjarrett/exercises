@@ -1,6 +1,7 @@
 package com.knottysoftware.exercises.adventofcode2022
 
 import java.io.File
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -77,6 +78,9 @@ class AppTest {
 
   @Test fun day17() = assertEquals(runOne("input17.txt", Day17()), Pair("3186", "1566376811584"))
   @Test fun day18() = assertEquals(runOne("input18.txt", Day18()), Pair("4608", "2652"))
+
+  // Day 19 is about 45s of compute.
+  @Ignore @Test fun day19() = assertEquals(runOne("input19.txt", Day19()), Pair("1653", "4212"))
 
   @Test fun day20() = assertEquals(runOne("input20.txt", Day20()), Pair("9866", "12374299815791"))
 }
