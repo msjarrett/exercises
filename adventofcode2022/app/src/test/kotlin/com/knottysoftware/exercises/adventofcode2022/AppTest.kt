@@ -83,4 +83,12 @@ class AppTest {
   @Ignore @Test fun day19() = assertEquals(runOne("input19.txt", Day19()), Pair("1653", "4212"))
 
   @Test fun day20() = assertEquals(runOne("input20.txt", Day20()), Pair("9866", "12374299815791"))
+
+  // Day21 returns an algebraic result.
+  @Test
+  fun day21() =
+      assertEquals(
+          runPartOneOnly("input21.txt", Day21()), "223971851179174") // partTwo = 3379022190351
+
+  @Test fun day22() = assertEquals(runOne("input22.txt", Day22()), Pair("50412", "130068"))
 }

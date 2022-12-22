@@ -1,7 +1,18 @@
 package com.knottysoftware.exercises.adventofcode2022
 
+import kotlin.time.TimeMark
+
+@OptIn(kotlin.time.ExperimentalTime::class)
 public class SearchQueue<T>() : Iterable<T> {
+  companion object {
+    private final val timeSource = kotlin.time.TimeSource.Monotonic
+  }
+
   private val queue = mutableListOf<Pair<T, Int>>()
+  private var startTime: TimeMark? = null
+  private var lastStats: TimeMark? = null
+  private var totalVisits: Long = 0
+  private var lastVisits: Int = 0
 
   constructor(initialValue: T) : this() {
     // Likely the first thing removed, so scoring is irrelevant.
@@ -11,7 +22,17 @@ public class SearchQueue<T>() : Iterable<T> {
   public override fun iterator(): Iterator<T> {
     return object : Iterator<T> {
       public override fun hasNext() = !queue.isEmpty()
-      public override fun next(): T = queue.removeFirst().first
+      public override fun next(): T {
+        // Timing starts when we remove the first element.
+        if (startTime == null) {
+          startTime = timeSource.markNow()
+          lastStats = timeSource.markNow()
+        }
+        lastVisits++
+        totalVisits++
+
+        return queue.removeFirst().first
+      }
     }
   }
 
@@ -32,4 +53,6 @@ public class SearchQueue<T>() : Iterable<T> {
     }
     queue.add(Pair(value, score))
   }
+
+  private fun doStats() {}
 }

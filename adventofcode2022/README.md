@@ -92,5 +92,10 @@ What I learned about Kotlin for each day:
   with value 0, which makes the choice of head purely cosmetic. Then it was trivial.
     * Part 2, I only ever apply the key in the final result and during shifts. I do not trust Kotlin int math;
       they will happily overflow or underflow with no warning at all, which seems insane for a modern language.
-
-      
+* Day 21: Conceptually not too bad, a quick reverse dependency graph.
+    * For part 2, I created an algebraic solver. There's a bug... somewhere... so I bisected to get the star.
+      I'm now trying to find where the bug is, but it's very difficult to find.
+* Day 22: Part 1 was easy enough, and I got to experiment with enumeration functions.
+  Part 2 was nasty and input-dependent (unless you're solving cube folding in code, which is unlikely). But
+  I had some fun with `buildMap` as a result.
+  
