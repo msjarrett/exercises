@@ -98,4 +98,7 @@ What I learned about Kotlin for each day:
 * Day 22: Part 1 was easy enough, and I got to experiment with enumeration functions.
   Part 2 was nasty and input-dependent (unless you're solving cube folding in code, which is unlikely). But
   I had some fun with `buildMap` as a result.
-  
+* Day 23: pretty mechanical. Not much to say.
+* Day 24: Finally a good A* candidate! I initially did part 2 with a single long search for the entire path,
+  but then realized that there's no advantage to arriving to an intermediate exit late. I deleted my cool
+  three-phase search, and simply ran part 1 three times, cutting my runtime 10x.
