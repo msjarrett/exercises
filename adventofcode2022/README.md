@@ -9,7 +9,53 @@ language, so spending most of my time searching class documentation.
 I discovered that JetBrains is running a [contest](https://blog.jetbrains.com/kotlin/2022/11/advent-of-code-2022-in-kotlin/)
 as well. Maybe I can win something nice...
 
-What I learned about Kotlin for each day:
+## Retrospective
+
+I finished for the first time this year! It definitely helped to have friends and colleagues
+working on it at the same time. Also, I must give credit to my wife, who insisted I go back
+and finish Day 19 even after I wanted to give up on it.
+
+Among the days I started on time, my best ranking was 1344 (day 22 pt 2), and my
+worst was 16042 (day 6 pt 1). Realistically, there wasn't a lot of chance of me ranking highly:
+9pm is prime time for my kids (both young and adult), working with an unfamiliar
+language (Kotlin). And honestly, I code more clean than fast - even if a `substring()` will do,
+I can't help but reach for the regex.
+
+Kotlin was a great language for the event, and I definitely enjoyed it.
+
+*Kotlin upsides:*
+
+* Collections are great. There's so many great tools to build and transform them in nearly endless
+  ways, even while maintaining immutability.
+* The functional programming syntax is very expressive! They add a lot of helpful shortcuts that
+  allow for very writable and readable code.
+* The Kotlin standard library has a lot of the basics built in - I never had to fall back to the JDK
+  except for `java.io.File`.
+* Kotlin enums have a lot of nice features. Not as nice as Rust though...
+
+*Kotlin Downsides:*
+
+* Integer safety is an absolute mess. They will steadfastly refuse even the most basic
+  safe promotions (eg. `longVal == 0`), but have no defense whatsoever against overflow or underflow,
+  which Advent of Code frequently tests.
+* Null safety is great... until you start using maps or have optional members. My day 21 had 75
+  instances of `!!`; it likely would have been beteter if I moved to sealed classes, though that
+  may have just replaced `!!` with `as`. The automatic null verification actually made things worse,
+  because changes in conditions could quicky generate warnings as the compiler realized some checks
+  were not required.
+* Variant support. I think this is the intent of sealed classes, but it feels heavyweight
+  to define an entire class hierarchy to just access one of two things. The alternative is optional
+  fields, but this was the cause of my nullability problems.
+* Documentation is present, but can be difficult to use. Methods may have the basic description, doesn't
+  always cover the helpful extras or gotchas.
+
+Gradle was a dumpster fire. It was slow (firing up new daemons), buggy (cache corruption),
+inconsistent (both in speed and reliability), and inscrutable (intermittently
+copying my sources to a new directory). I can't imagine why anyone likes this, for any project.
+Definitely going to look into [Bazel](https://bazel.build/) next year, and see if it's better.
+
+
+## Daily commentary
 
 * Day 1: Classic collection processing.
     * It bothered me that I couldn't find a way to split the lines into
@@ -102,3 +148,4 @@ What I learned about Kotlin for each day:
 * Day 24: Finally a good A* candidate! I initially did part 2 with a single long search for the entire path,
   but then realized that there's no advantage to arriving to an intermediate exit late. I deleted my cool
   three-phase search, and simply ran part 1 three times, cutting my runtime 10x.
+* Day 25: VICTORY! One last shot by the lack of safeint, but otherwise an easy enough challenge.

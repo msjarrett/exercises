@@ -93,4 +93,5 @@ class AppTest {
   @Test fun day22() = assertEquals(runOne("input22.txt", Day22()), Pair("50412", "130068"))
   @Test fun day23() = assertEquals(runOne("input23.txt", Day23()), Pair("4068", "968"))
   @Test fun day24() = assertEquals(runOne("input24.txt", Day24()), Pair("281", "807"))
+  @Test fun day25() = assertEquals(runPartOneOnly("input25.txt", Day25()), "2-20=01--0=0=0=2-120")
 }

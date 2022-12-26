@@ -54,5 +54,5 @@ fun runOne(filename: String, exercise: Exercise) {
 }
 
 fun main(args: Array<String>) {
-  runOne(args[0] + "14" + ".txt", Day14())
+  runOne(args[0] + "25" + ".txt", Day25())
 }
