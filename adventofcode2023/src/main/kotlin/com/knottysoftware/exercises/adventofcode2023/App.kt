@@ -82,17 +82,22 @@ suspend fun runOne(exercise: Exercise, filename: String) {
 }
 
 fun main(args: Array<String>) {
-    val exercise = Day0()
-    val file = /*args[0] + "25" + ".txt"*/"test.txt"
+    val exercise = Day1()
+    val file = /*args[0] + "25" + ".txt"*/"input1.txt"
 
     runBlocking {
         if (args.size == 1 && args[0] == "test") {
-            val testInput = exercise.testInput.split("\n").asFlow()
             runExercise(
                 exercise,
-                testInput,
+                exercise.testInput.split("\n").asFlow(),
                 expectedPart1 = exercise.testResultPart1,
-                expectedPart2 = exercise.testResultPart2
+                doPartTwo = false,
+            )
+            runExercise(
+                exercise,
+                exercise.testInput2.split("\n").asFlow(),
+                expectedPart2 = exercise.testResultPart2,
+                doPartOne = false,
             )
         } else {
             runOne(exercise, file)
