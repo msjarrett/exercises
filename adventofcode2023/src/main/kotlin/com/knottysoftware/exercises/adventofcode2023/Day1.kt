@@ -1,7 +1,6 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class Day1 : Exercise {
@@ -33,8 +32,8 @@ zoneight234
 
     override suspend fun partOne(): Any {
         return lines.map {
-            var firstCh: Char = 'x'
-            var lastCh: Char = 'x'
+            var firstCh = '*'
+            var lastCh = '*'
             for (c in it) {
                 if (c >= '0' && c <= '9') {
                     firstCh = c
@@ -47,30 +46,30 @@ zoneight234
                     break
                 }
             }
-            var str = "" + firstCh + lastCh
+            val str = "" + firstCh + lastCh
             str.toInt()
         }.sum()
     }
 
     override suspend fun partTwo(): Any {
         return lines.map {
-            var firstCh: Char = 'x'
-            var lastCh: Char = 'x'
+            var firstCh = '*'
+            var lastCh = '*'
             for (i in 0 ..< it.length ) {
                 val ch = getNumCharAt(it, i)
                 if (ch != null) {
-                    firstCh = ch!!
+                    firstCh = ch
                     break
                 }
             }
             for (i in (it.length - 1)downTo 0) {
                 val ch = getNumCharAt(it, i)
                 if (ch != null) {
-                    lastCh = ch!!
+                    lastCh = ch
                     break
                 }
             }
-            var str = "" + firstCh + lastCh
+            val str = "" + firstCh + lastCh
             str.toInt()
         }.sum()
     }

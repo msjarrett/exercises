@@ -7,6 +7,7 @@ import java.io.File
 
 class AppKtTest {
     @Test fun day1() = assertDay(Day1(), "input1.txt", 53921, 54676)
+    @Test fun day2() = assertDay(Day2(), "input2.txt", 3059, 65371)
 
     private fun assertDay(e: Exercise, input: String, part1: Any, part2: Any) {
         runTest {
