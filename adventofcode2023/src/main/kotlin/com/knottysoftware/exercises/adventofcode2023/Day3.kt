@@ -25,8 +25,6 @@ class Day3 : Exercise {
 
     data class Point(val x: Int, val y: Int)
 
-    private fun isNum(c: Char) = c >= '0' && c <= '9'
-
     override suspend fun parse(lines: Flow<String>) {
         val symbols = mutableMapOf<Point, Char>()
         val nums = mutableMapOf<Point, Int>()
@@ -36,9 +34,9 @@ class Day3 : Exercise {
             while (x < line.length) {
                 if (line[x] == '.') {
                     // Nothing
-                } else if (isNum(line[x])) {
+                } else if (line[x].isDigit()) {
                     var x2 = x + 1
-                    while (x2 < line.length && isNum(line[x2])) x2++
+                    while (x2 < line.length && line[x2].isDigit()) x2++
                     nums[Point(x, y)] = line.substring(x, x2).toInt()
                     x = x2 - 1
                 } else {
