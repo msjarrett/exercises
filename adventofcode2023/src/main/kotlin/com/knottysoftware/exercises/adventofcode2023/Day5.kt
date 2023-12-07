@@ -67,7 +67,7 @@ humidity-to-location map:
         seeds = lineIt.next().substring(7).split(' ').map { it.toLong() }
 
         while (lineIt.hasNext()) {
-            val line = lineIt.next();
+            val line = lineIt.next()
             if (line == "") {
                 curList.sortBy { it.source }    // MutableList.sortBy is in-place.
                 curList = mutableListOf()
@@ -85,24 +85,24 @@ humidity-to-location map:
         rangeMapChain = maps
     }
 
-    override suspend fun partOne(): Any {
-        return seeds.map {
-            var cur = it
-            for (m in rangeMapChain) {
-                var newVal: Long? = null
-                for (r in m) {
-                    newVal = r.map(cur)
-                    if (newVal != null) {
-                        cur = newVal
-                        break
-                    }
-                }
+
+
+    override suspend fun partOne()= seeds.map(this::mapOneSeed).min()
+
+    fun mapOneSeed(s: Long) = rangeMapChain.fold(s) { cur, m ->
+        var newVal: Long? = null
+        for (r in m) {
+            newVal = r.map(cur)
+            if (newVal != null) {
+                break
             }
-            cur
-        }.min()
+        }
+        newVal ?: cur
     }
 
-    override suspend fun partTwo(): Any {
+    override suspend fun partTwo() = mapSeedsByRanges()
+
+    fun mapSeedsByRanges(): Long {
         // Pair of [start, end)
         var curRanges: MutableList<Pair<Long, Long>>
         var ranges: List<Pair<Long, Long>>
