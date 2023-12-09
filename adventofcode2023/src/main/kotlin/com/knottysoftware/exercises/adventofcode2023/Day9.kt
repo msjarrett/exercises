@@ -22,44 +22,20 @@ class Day9 : Exercise {
         }
     }
 
-    fun nextHistory(hist: List<Int>): Int {
+    fun genSeqs(hist: List<Int>): List<List<Int>> {
         val seqs = mutableListOf(hist)
-
         while(!seqs.last().all { it == 0} ) {
-            // TODO: There's a better map solution in Kotlin I bet.
-            val prev = seqs.last()
-            val cur = mutableListOf<Int>()
-            for (i in 1 ..< prev.size) {
-                cur.add(prev[i] - prev[i - 1])
-            }
-            seqs.add(cur)
+            seqs.add(seqs.last().windowed(2, 1).map{ it[1] - it[0] })
         }
-
-        var newItem = 0
-        for (cur in seqs.reversed().drop(1)) {
-            newItem = cur.last() + newItem
-        }
-        return newItem
+        return seqs
     }
 
-    fun prevHistory(hist: List<Int>): Int {
-        val seqs = mutableListOf(hist)
-
-        while(!seqs.last().all { it == 0} ) {
-            // TODO: There's a better map solution in Kotlin I bet.
-            val prev = seqs.last()
-            val cur = mutableListOf<Int>()
-            for (i in 1 ..< prev.size) {
-                cur.add(prev[i] - prev[i - 1])
-            }
-            seqs.add(cur)
+    fun nextHistory(hist: List<Int>) = genSeqs(hist).reversed().drop(1).fold(0) { newVal, cur ->
+            cur.last() + newVal
         }
 
-        var newItem = 0
-        for (cur in seqs.reversed().drop(1)) {
-            newItem = cur.first() - newItem
-        }
-        return newItem
+    fun prevHistory(hist: List<Int>)= genSeqs(hist).reversed().drop(1).fold(0) { newVal, cur ->
+        cur.first() - newVal
     }
 
     override suspend fun partOne() = hists.map(::nextHistory).toList().sum()
