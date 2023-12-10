@@ -15,6 +15,7 @@ class AppKtTest {
     @Test fun day7() = assertDay(Day7(), "input7.txt", 248422077, 249817836)
     @Test fun day8() = assertDay(Day8(), "input8.txt", 11309, 13740108158591L)
     @Test fun day9() = assertDay(Day9(), "input9.txt", 1898776583, 1100)
+    @Test fun day10() = assertDay(Day10(), "input10.txt", 6856, 501)
 
     private fun assertDay(e: Exercise, input: String, part1: Any, part2: Any) {
         runTest {
