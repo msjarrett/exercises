@@ -3,10 +3,8 @@ package com.knottysoftware.exercises.adventofcode2023
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 
-typealias Gridy = List<List<Char>>
-
 class Day13 : Exercise {
-    private lateinit var grids: List<Gridy>
+    private lateinit var grids: List<Grid<Char>>
 
     override val testInput = """
 #.##..##.
@@ -30,31 +28,28 @@ class Day13 : Exercise {
     override val testResultPart2 = 400
 
     override suspend fun parse(lines: Flow<String>) {
-        val grids = mutableListOf<Gridy>()
-        var grid = mutableListOf<List<Char>>()
+        val grids = mutableListOf<Grid<Char>>()
+        var grid = mutableListOf<String>()
         for (line in lines.toList()) {
             if (line == "") {
-                grids.add(grid)
+                grids.add(gridFromStrings(grid))
                 grid = mutableListOf()
             } else {
-                grid.add(line.toList())
+                grid.add(line)
             }
         }
-        grids.add(grid)
+        grids.add(gridFromStrings(grid))
         this.grids = grids
     }
 
-    fun reflectionScore(grid: Gridy, ignoreScore: Int = 0): Int {
-        val maxY = grid.size - 1
-        val maxX = grid[0].size - 1
-
+    fun reflectionScore(grid: Grid<Char>, ignoreScore: Int = 0): Int {
         // R is the column on the right side of the reflection.
-        XRange@ for (r in 1 .. maxX) {
-            for (y in 0 .. maxY) {
-                for (x in r .. maxX) {
+        XRange@ for (r in 1 .. grid.maxX) {
+            for (y in 0 .. grid.maxY) {
+                for (x in r .. grid.maxX) {
                     val left = r - ((x - r) + 1)
                     if (left < 0) break
-                    if (grid[y][x] != grid[y][left]) continue@XRange
+                    if (grid.at(x, y) != grid.at(left, y)) continue@XRange
                 }
             }
             // Full match on column
@@ -65,12 +60,12 @@ class Day13 : Exercise {
         }
 
         // R is the row below the reflection.
-        YRange@ for (r in 1 .. maxY) {
-            for (x in 0 .. maxX) {
-                for (y in r .. maxY) {
+        YRange@ for (r in 1 .. grid.maxY) {
+            for (x in 0 .. grid.maxX) {
+                for (y in r .. grid.maxY) {
                     val top = r - ((y - r) + 1)
                     if (top < 0) break
-                    if (grid[y][x] != grid[top][x]) continue@YRange
+                    if (grid.at(x,y) != grid.at(x, top)) continue@YRange
                 }
             }
 
@@ -85,14 +80,15 @@ class Day13 : Exercise {
         return 0
     }
 
-    fun smudgeScore(grid: Gridy): Int {
+    fun smudgeScore(grid: Grid<Char>): Int {
         val originalScore = reflectionScore(grid)
-        val mgrid = grid.map { it.toMutableList() }
-        for (y in 0 ..< mgrid.size) {
-            for (x in 0 ..< mgrid[0].size) {
-                val origChar = mgrid[y][x]
-                if (origChar == '#') mgrid[y][x] = '.'
-                else if (origChar == '.') mgrid[y][x] = '#'
+        val mgrid = grid.toMutableGrid()
+
+        for (y in 0 .. mgrid.maxY) {
+            for (x in 0 .. mgrid.maxX) {
+                val origChar = mgrid.at(x,y)
+                if (origChar == '#') mgrid.set('.', x, y)
+                else if (origChar == '.') mgrid.set('#', x, y)
                 else throw IllegalArgumentException()
 
                 val score = reflectionScore(mgrid, originalScore)
@@ -100,7 +96,7 @@ class Day13 : Exercise {
                     //println("Smudge $x $y")
                     return score
                 }
-                mgrid[y][x] = origChar
+                mgrid.set(origChar, x, y)
             }
         }
         return 0

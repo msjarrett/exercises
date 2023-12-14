@@ -1,11 +1,10 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class Day14 : Exercise {
-    private lateinit var grid: Gridy
+    private lateinit var grid: Grid<Char>
 
     override val testInput = """
 O....#....
@@ -24,69 +23,53 @@ O.#..O.#.#
     override val testResultPart2 = 64
 
     override suspend fun parse(lines: Flow<String>) {
-        grid = lines.map {
-            it.toList()
-        }.toList()
+        grid = gridFromStrings(lines.toList())
     }
 
-    fun tiltNorth(grid: Gridy): Gridy {
-        val newGrid = List(grid.size) {
-            MutableList(grid[0].size) {
-                '.'
-            }
-        }
+    fun tiltNorth(grid: Grid<Char>): Grid<Char> {
+        val newGrid = mutableGrid(grid.width, grid.height) { _, _ -> '.' }
 
-        for (x in 0 ..< grid[0].size) {
+        for (x in 0 .. grid.maxX) {
             var nextY = 0
-            for (y in 0 ..< grid.size) {
-                if (grid[y][x] == 'O') {
-                    newGrid[nextY++][x] = 'O'
-                } else if (grid[y][x] == '#') {
-                    newGrid[y][x] = '#'
+            for (y in 0 .. grid.maxY) {
+                if (grid.at(x, y) == 'O') {
+                    newGrid.set('O', x, nextY++)
+                } else if (grid.at(x, y) == '#') {
+                    newGrid.set('#', x, y)
                     nextY = y + 1
                 }
             }
         }
-
         return newGrid
     }
 
-    fun tiltSouth(grid: Gridy): Gridy {
-        val newGrid = List(grid.size) {
-            MutableList(grid[0].size) {
-                '.'
-            }
-        }
+    fun tiltSouth(grid: Grid<Char>): Grid<Char> {
+        val newGrid = mutableGrid(grid.width, grid.height) { _, _ -> '.' }
 
-        for (x in 0 ..< grid[0].size) {
-            var nextY = grid.size - 1
-            for (y in (grid.size - 1) downTo 0) {
-                if (grid[y][x] == 'O') {
-                    newGrid[nextY--][x] = 'O'
-                } else if (grid[y][x] == '#') {
-                    newGrid[y][x] = '#'
+        for (x in 0 .. grid.maxX) {
+            var nextY = grid.maxY
+            for (y in grid.maxY downTo 0) {
+                if (grid.at(x, y) == 'O') {
+                    newGrid.set('O', x, nextY--)
+                } else if (grid.at(x, y) == '#') {
+                    newGrid.set('#', x, y)
                     nextY = y - 1
                 }
             }
         }
-
         return newGrid
     }
 
-    fun tiltWest(grid: Gridy): Gridy {
-        val newGrid = List(grid.size) {
-            MutableList(grid[0].size) {
-                '.'
-            }
-        }
+    fun tiltWest(grid: Grid<Char>): Grid<Char> {
+        val newGrid = mutableGrid(grid.width, grid.height) { _, _ -> '.' }
 
-        for (y in 0 ..< grid.size) {
+        for (y in 0 .. grid.maxY) {
             var nextX = 0
-            for (x in 0 ..< grid[0].size) {
-                if (grid[y][x] == 'O') {
-                    newGrid[y][nextX++] = 'O'
-                } else if (grid[y][x] == '#') {
-                    newGrid[y][x] = '#'
+            for (x in 0 .. grid.maxX) {
+                if (grid.at(x, y) == 'O') {
+                    newGrid.set('O', nextX++, y)
+                } else if (grid.at(x, y) == '#') {
+                    newGrid.set('#', x, y)
                     nextX = x + 1
                 }
             }
@@ -95,20 +78,16 @@ O.#..O.#.#
         return newGrid
     }
 
-    fun tiltEast(grid: Gridy): Gridy {
-        val newGrid = List(grid.size) {
-            MutableList(grid[0].size) {
-                '.'
-            }
-        }
+    fun tiltEast(grid: Grid<Char>): Grid<Char> {
+        val newGrid = mutableGrid(grid.width, grid.height) { _, _ -> '.' }
 
-        for (y in 0 ..< grid.size) {
-            var nextX = grid[0].size - 1
-            for (x in (grid[0].size - 1) downTo 0) {
-                if (grid[y][x] == 'O') {
-                    newGrid[y][nextX--] = 'O'
-                } else if (grid[y][x] == '#') {
-                    newGrid[y][x] = '#'
+        for (y in 0 .. grid.maxY) {
+            var nextX = grid.maxX
+            for (x in grid.maxX downTo 0) {
+                if (grid.at(x, y) == 'O') {
+                    newGrid.set('O', nextX--, y)
+                } else if (grid.at(x, y) == '#') {
+                    newGrid.set('#', x, y)
                     nextX = x - 1
                 }
             }
@@ -117,14 +96,14 @@ O.#..O.#.#
         return newGrid
     }
 
-    fun tiltCycle(grid: Gridy): Gridy {
+    fun tiltCycle(grid: Grid<Char>): Grid<Char> {
         return tiltEast(tiltSouth(tiltWest(tiltNorth(grid))))
     }
 
-    fun northWeight(grid: Gridy): Int {
-        val rows = grid.size
+    fun northWeight(grid: Grid<Char>): Int {
+        val rows = grid.maxY + 1
 
-        return grid.mapIndexed { y, row ->
+        return grid.toList().mapIndexed { y, row ->
             row.count { it == 'O' } * (rows - y)
         }.sum()
     }

@@ -1,7 +1,6 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class Day8 : Exercise {
@@ -36,9 +35,10 @@ XXX = (XXX, XXX)
         val lineList = lines.toList()
         steps = lineList[0].toList()
 
-        // TODO Regex
+        val edgesRegex = Regex("""(\w+) = \((\w+), (\w+)\)""")
         edges = lineList.drop(2).map {
-            it.substring(0, 3) to Pair(it.substring(7,10), it.substring(12,15))
+            val (node, left, right) = edgesRegex.matchEntire(it)!!.destructured
+            node to Pair(left, right)
         }.toMap()
     }
 
@@ -72,11 +72,10 @@ XXX = (XXX, XXX)
         //   DTA -> HLZ in 17621 -> HLZ in 35242
 
         //println(" STEPS ${steps.size}")
-        var curs = edges.keys.filter { it[2] == 'A'}
 
         // Every A loops to a unique Z on whole multiples of the path.
         // Find the loop length.
-        val loops = curs.map {
+        val loops = edges.keys.filter { it[2] == 'A'}.map {
             var cur = it
             var iStep = 0
             var moves = 0
