@@ -1,13 +1,12 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
-typealias Grid = List<List<Char>>
+typealias Gridy = List<List<Char>>
 
 class Day13 : Exercise {
-    private lateinit var grids: List<Grid>
+    private lateinit var grids: List<Gridy>
 
     override val testInput = """
 #.##..##.
@@ -31,7 +30,7 @@ class Day13 : Exercise {
     override val testResultPart2 = 400
 
     override suspend fun parse(lines: Flow<String>) {
-        val grids = mutableListOf<Grid>()
+        val grids = mutableListOf<Gridy>()
         var grid = mutableListOf<List<Char>>()
         for (line in lines.toList()) {
             if (line == "") {
@@ -45,7 +44,7 @@ class Day13 : Exercise {
         this.grids = grids
     }
 
-    fun reflectionScore(grid: Grid, ignoreScore: Int = 0): Int {
+    fun reflectionScore(grid: Gridy, ignoreScore: Int = 0): Int {
         val maxY = grid.size - 1
         val maxX = grid[0].size - 1
 
@@ -86,7 +85,7 @@ class Day13 : Exercise {
         return 0
     }
 
-    fun smudgeScore(grid: Grid): Int {
+    fun smudgeScore(grid: Gridy): Int {
         val originalScore = reflectionScore(grid)
         val mgrid = grid.map { it.toMutableList() }
         for (y in 0 ..< mgrid.size) {
