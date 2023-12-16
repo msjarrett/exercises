@@ -112,3 +112,7 @@ fun <T> mutableGrid(width: Int, height: Int, init: (x: Int, y: Int) -> T) =
 
 
 fun <T> Grid<T>.toMutableGrid(): MutableGrid<T> = mutableGrid(toList().map { it.toMutableList() })
+
+fun Grid<*>.contains(p: Point) = p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY
+
+fun <T> Grid<T>.at(p: Point): T = at(p.x, p.y)
