@@ -1,10 +1,11 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlin.time.TimeMark
+import kotlin.time.Duration
 
 class SearchQueue<T>() : Iterable<T> {
     companion object {
-        private final val timeSource = kotlin.time.TimeSource.Monotonic
+        private val timeSource = kotlin.time.TimeSource.Monotonic
     }
 
     private val queue = mutableListOf<Pair<T, Int>>()
@@ -13,7 +14,7 @@ class SearchQueue<T>() : Iterable<T> {
     private var totalVisits: Long = 0
     private var lastVisits: Int = 0
 
-    var doStats = false
+    var statsInterval: Duration? = null
 
     constructor(initialValue: T) : this() {
         // Likely the first thing removed, so scoring is irrelevant.
@@ -22,8 +23,8 @@ class SearchQueue<T>() : Iterable<T> {
 
     override fun iterator(): Iterator<T> {
         return object : Iterator<T> {
-            public override fun hasNext() = !queue.isEmpty()
-            public override fun next(): T {
+            override fun hasNext() = !queue.isEmpty()
+            override fun next(): T {
                 // Timing starts when we remove the first element.
                 if (startTime == null) {
                     startTime = timeSource.markNow()
@@ -31,6 +32,14 @@ class SearchQueue<T>() : Iterable<T> {
                 }
                 lastVisits++
                 totalVisits++
+
+                statsInterval?.let {
+                    if (lastStats!!.elapsedNow() > it) {
+                        doStats()
+                        lastVisits = 0
+                        lastStats = timeSource.markNow()
+                    }
+                }
 
                 return queue.removeFirst().first
             }
@@ -55,5 +64,7 @@ class SearchQueue<T>() : Iterable<T> {
         queue.add(Pair(value, score))
     }
 
-    private fun doStats() {}
+    private fun doStats() {
+        println("[${startTime!!.elapsedNow().inWholeSeconds} s] visited $totalVisits; current score ${queue.first().second} (queue ${queue.size})")
+    }
 }
