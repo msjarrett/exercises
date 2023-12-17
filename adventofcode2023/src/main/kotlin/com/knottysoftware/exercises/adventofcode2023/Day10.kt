@@ -203,10 +203,9 @@ L7JLJL-JLJLJL--JLJ.L
     }
 
     fun exploreSpace(p: Point, points: MutableList<Point>): Boolean {
-        val queue = mutableListOf(p)
+        val queue = SearchQueue(p)
         var isExt = false
-        while (!queue.isEmpty()) {
-            val cur = queue.removeFirst()
+        for (cur in queue) {
             if (grid.containsKey(cur)) continue // Collides with a pipe
             if (points.contains(cur)) continue // Already found it
             if (cur.x < 0 || cur.y < 0 || cur.x > maxX || cur.y > maxY) {
@@ -217,10 +216,10 @@ L7JLJL-JLJLJL--JLJ.L
             // It's Valid!
             points.add(cur)
 
-            queue.add(cur.move(Direction.UP))
-            queue.add(cur.move(Direction.DOWN))
-            queue.add(cur.move(Direction.LEFT))
-            queue.add(cur.move(Direction.RIGHT))
+            queue.addBFS(cur.move(Direction.UP))
+            queue.addBFS(cur.move(Direction.DOWN))
+            queue.addBFS(cur.move(Direction.LEFT))
+            queue.addBFS(cur.move(Direction.RIGHT))
         }
 
         return isExt

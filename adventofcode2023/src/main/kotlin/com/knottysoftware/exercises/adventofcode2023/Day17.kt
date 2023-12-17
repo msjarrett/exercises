@@ -42,10 +42,8 @@ class Day17 : Exercise {
         val goal = Point(grid.maxX, grid.maxY)
 
         // Loop ignores any direction on first move.
-        val queue = mutableListOf(Pair(grid.maxX + grid.maxY , Node(Point(0,0), Direction.UP, 0, 0)))
-        queueLoop@ while (!queue.isEmpty()) {
-            val (nMetric, n) = queue.removeFirst()
-
+        val queue = SearchQueue(Node(Point(0,0), Direction.UP, 0, 0))
+        queueLoop@ for (n in queue) {
             assert (grid.contains(n.pos))       // We don't add these below.
             assert (n.stepsInDir <= maxSteps)   // We don't add these below.
             // We do add lesser steps because we want to calculate cost.
@@ -73,7 +71,7 @@ class Day17 : Exercise {
             }
 
             // Add new nodes.
-            addLoop@ for (dir in listOf(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
+            for (dir in listOf(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 if (n.cost != 0) { // Can do anything on first step
                     if (dir == n.dir.turnReverse()) continue                 // Can't reverse
                     if (dir != n.dir && n.stepsInDir < minSteps) continue    // Must travel at least minSteps before turning
@@ -83,17 +81,7 @@ class Day17 : Exercise {
                 if (!grid.contains(newPos)) continue
 
                 val newNode = Node(newPos, dir, if (n.dir == dir) n.stepsInDir + 1 else 1, n.cost + grid.at(newPos))
-                val newNodePair = Pair(newNode.cost + newNode.pos.manhattanDistanceTo(goal),
-                    newNode)
-
-                for (i in 0 ..< queue.size) {
-                    if (queue[i].first > newNodePair.first) {
-                        queue.add(i, newNodePair)
-                        continue@addLoop
-                    }
-                }
-                // Worst score
-                queue.add(newNodePair)
+                queue.addScored(newNode, newNode.cost + newNode.pos.manhattanDistanceTo(goal))
             }
         }
 
