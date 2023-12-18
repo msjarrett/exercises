@@ -51,19 +51,23 @@ enum class Direction {
     abstract fun turnRight(): Direction
     // Turn right 90'
     abstract fun turnReverse(): Direction
+
+    companion object {
+        val cardinalDirections = listOf(UP, DOWN, LEFT, RIGHT)
+    }
 }
 
 data class Point(val x: Int = 0, val y: Int = 0) {
-    fun move(dir: Direction): Point =
+    fun move(dir: Direction, dist: Int = 1): Point =
         when (dir) {
-            Direction.UP -> Point(x, y - 1)
-            Direction.UPRIGHT -> Point(x + 1, y - 1)
-            Direction.RIGHT -> Point(x + 1, y)
-            Direction.DOWNRIGHT -> Point(x + 1, y + 1)
-            Direction.DOWN -> Point(x, y + 1)
-            Direction.DOWNLEFT -> Point(x - 1, y + 1)
-            Direction.LEFT -> Point(x - 1, y)
-            Direction.UPLEFT -> Point(x - 1, y - 1)
+            Direction.UP -> Point(x, y - dist)
+            Direction.UPRIGHT -> Point(x + dist, y - dist)
+            Direction.RIGHT -> Point(x + dist, y)
+            Direction.DOWNRIGHT -> Point(x + dist, y + dist)
+            Direction.DOWN -> Point(x, y + dist)
+            Direction.DOWNLEFT -> Point(x - dist, y + dist)
+            Direction.LEFT -> Point(x - dist, y)
+            Direction.UPLEFT -> Point(x - dist, y - dist)
         }
 
     fun directionTo(dest: Point): Direction? {

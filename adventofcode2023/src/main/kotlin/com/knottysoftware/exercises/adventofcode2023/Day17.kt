@@ -71,7 +71,7 @@ class Day17 : Exercise {
             }
 
             // Add new nodes.
-            for (dir in listOf(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
+            for (dir in Direction.cardinalDirections) {
                 if (n.cost != 0) { // Can do anything on first step
                     if (dir == n.dir.turnReverse()) continue                 // Can't reverse
                     if (dir != n.dir && n.stepsInDir < minSteps) continue    // Must travel at least minSteps before turning
