@@ -9,7 +9,7 @@ class Day7 : Exercise {
         val cards = hand.toCharArray()
 
         init {
-            assert(cards.size == 5)
+            check(cards.size == 5)
         }
 
         enum class Type (val rank: Int){

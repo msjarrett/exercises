@@ -2,7 +2,6 @@ package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
-import kotlin.time.Duration.Companion.seconds
 
 class Day17 : Exercise {
     private lateinit var grid: Grid<Int>
@@ -45,8 +44,8 @@ class Day17 : Exercise {
         val queue = SearchQueue(Node(Point(0,0), Direction.UP, 0, 0))
         //queue.statsInterval = 5.seconds
         queueLoop@ for (n in queue) {
-            assert (grid.contains(n.pos))       // We don't add these below.
-            assert (n.stepsInDir <= maxSteps)   // We don't add these below.
+            check (grid.contains(n.pos))       // We don't add these below.
+            check (n.stepsInDir <= maxSteps)   // We don't add these below.
             // We do add lesser steps because we want to calculate cost.
 
             if (cache.containsKey(n.pos)) {

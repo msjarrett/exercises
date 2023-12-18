@@ -23,7 +23,7 @@ class Day12 : Exercise {
     override suspend fun parse(lines: Flow<String>) {
         rows = lines.map {
             val pieces = it.split(' ')
-            assert(pieces.size == 2)
+            check(pieces.size == 2)
             Pair(pieces[0], pieces[1].split(',').map { it.toInt() })
         }
     }

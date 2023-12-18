@@ -151,7 +151,7 @@ L7JLJL-JLJLJL--JLJ.L
             start.move(Direction.LEFT), start.move(Direction.RIGHT)).filter {
                 grid[it]?.connections(it)?.any { it == start } ?: false
             }
-        assert(starts.size == 2)
+        check(starts.size == 2)
 
         val newGrid = mutableMapOf(start to when {
             starts.contains(start.move(Direction.UP)) && starts.contains(start.move(Direction.DOWN)) -> Pipe.UPDOWN

@@ -19,7 +19,7 @@ Distance:  9  40  200
         val times = lineList[0].substring(10).split(" ").filter { it != "" }.map(String::toInt)
         val distances = lineList[1].substring(10).split(" ").filter { it != "" }.map(String::toInt)
 
-        assert(times.size == distances.size)
+        check(times.size == distances.size)
 
         val races = mutableListOf<Pair<Int, Int>>()
         for (i in 0 ..< times.size) {
