@@ -32,11 +32,11 @@ XXX = (XXX, XXX)
     override val testResultPart2 = 6L
 
     override suspend fun parse(lines: Flow<String>) {
-        val lineList = lines.toList()
-        steps = lineList[0].toList()
+        val lists = lines.toList().splitOnBlank()
+        steps = lists[0].single().toList()
 
         val edgesRegex = Regex("""(\w+) = \((\w+), (\w+)\)""")
-        edges = lineList.drop(2).map {
+        edges = lists[1].map {
             val (node, left, right) = edgesRegex.matchEntire(it)!!.destructured
             node to Pair(left, right)
         }.toMap()

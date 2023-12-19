@@ -60,32 +60,17 @@ humidity-to-location map:
     override val testResultPart2 = 46L
 
     override suspend fun parse(lines: Flow<String>) {
-        val lineIt = lines.toList().iterator()
-        val maps = mutableListOf<List<RangeMap>>()
-        var curList = mutableListOf<RangeMap>() // Will be discarded.
+        val lists = lines.toList().splitOnBlank()
 
-        seeds = lineIt.next().substring(7).split(' ').map { it.toLong() }
-
-        while (lineIt.hasNext()) {
-            val line = lineIt.next()
-            if (line == "") {
-                curList.sortBy { it.source }    // MutableList.sortBy is in-place.
-                curList = mutableListOf()
-                maps.add(curList)
-                lineIt.next()
-            } else {
-                val nums = line.split(' ').map { it.toLong() }
-                curList.add(RangeMap(nums[1], nums[0], nums[2]))
-            }
+        seeds = lists[0].single().substring(7).split(' ').map { it.toLong() }
+        rangeMapChain = lists.drop(1).map { // Drop the seeds
+            listOf(RangeMap(1,2,3))
+            it.drop(1).map {  // Drop the (irrelevant) title. They're all in order.
+                val nums = it.split(' ').map { it.toLong() }
+                RangeMap(nums[1], nums[0], nums[2])
+            }.sortedBy { it.source }
         }
-
-        // Sort the last list, since it wasn't sorted like the others.
-        curList.sortBy { it.source }
-
-        rangeMapChain = maps
     }
-
-
 
     override suspend fun partOne()= seeds.map(this::mapOneSeed).min()
 

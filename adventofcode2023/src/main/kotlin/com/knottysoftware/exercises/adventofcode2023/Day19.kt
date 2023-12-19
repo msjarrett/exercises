@@ -1,14 +1,25 @@
 package com.knottysoftware.exercises.adventofcode2023
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlin.math.max
 import kotlin.math.min
 
 class Day19 : Exercise {
-    data class Rule(val prop: Char, var op: Char, val num: Int, val dest: String)
-    data class Part(val x: Int, val m: Int, val a: Int, val s: Int)
+    enum class Prop { X, M, A, S }
+    data class Rule(val prop: Prop, var op: Op, val num: Int, val dest: String) {
+        enum class Op {
+            GT, LT, WILD
+        }
+    }
+    data class Part(val x: Int, val m: Int, val a: Int, val s: Int) {
+        fun getProp(prop: Prop) = when (prop) {
+            Prop.X -> x
+            Prop.M -> m
+            Prop.A -> a
+            Prop.S -> s
+        }
+    }
 
     private lateinit var flows: Map<String, List<Rule>>
     private lateinit var parts: List<Part>
@@ -37,27 +48,39 @@ hdj{m>838:A,pv}
     override val testResultPart2 = 167409079868000L
 
     override suspend fun parse(lines: Flow<String>) {
-        val flowRegex = Regex("""([a-z]+)\{(.+)\}""")
+        val flowRegex = Regex("""([a-z]+)\{(.+)}""")
         val ruleRegex = Regex("""([xmas])([<>])(\d+):([a-zAR]+)""")
-        val partRegex = Regex("""\{x=(\d+),m=(\d+),a=(\d+),s=(\d+)\}""")
+        val partRegex = Regex("""\{x=(\d+),m=(\d+),a=(\d+),s=(\d+)}""")
 
-        val linesList = lines.toList()
-        val blankLine = linesList.indexOf("")
-        check(blankLine != -1)
-        flows = linesList.take(blankLine).map {
+        val lists = lines.toList().splitOnBlank()
+        flows = lists[0].map {
             val (name, rules) = flowRegex.matchEntire(it)!!.destructured
             name to rules.split(",").map {
                 if (!it.contains(':')) {
                     // Final rule
-                    Rule('*', '*', 0, it)
+                    Rule(Prop.X, Rule.Op.WILD, 0, it)
                 } else {
                     val (prop, op, num, dest) = ruleRegex.matchEntire(it)!!.destructured
-                    Rule(prop[0], op[0], num.toInt(), dest)
+                    Rule(
+                        when (prop[0]) {
+                            'x' -> Prop.X
+                            'm' -> Prop.M
+                            'a' -> Prop.A
+                            's' -> Prop.S
+                            else -> throw IllegalArgumentException()
+                        },
+                        when (op[0]) {
+                            '>' -> Rule.Op.GT
+                            '<' -> Rule.Op.LT
+                            else -> throw IllegalArgumentException()
+                        },
+                        num.toInt(),
+                        dest)
                 }
             }
         }.toMap()
 
-        parts = linesList.drop(blankLine + 1).map {
+        parts = lists[1].map {
             val (x, m, a, s) = partRegex.matchEntire(it)!!.destructured
             Part(x.toInt(), m.toInt(), a.toInt(), s.toInt())
         }
@@ -68,25 +91,16 @@ hdj{m>838:A,pv}
         while (true) {
             val rules = flows[flow]!!
             for (rule in rules) {
-                val testVal = when (rule.prop) {
-                    'x' -> part.x
-                    'm' -> part.m
-                    'a' -> part.a
-                    's' -> part.s
-                    '*' -> 0
-                    else -> throw IllegalArgumentException()
-                }
-
+                val testVal = part.getProp(rule.prop)
                 val test = when (rule.op) {
-                    '>' -> testVal > rule.num
-                    '<' -> testVal < rule.num
-                    '*' -> true
-                    else -> throw IllegalArgumentException()
+                    Rule.Op.GT -> testVal > rule.num
+                    Rule.Op.LT -> testVal < rule.num
+                    Rule.Op.WILD -> true
                 }
 
                 if (test) {
-                    if (rule.dest == "A" || rule.dest == "R") return rule.dest
-
+                    if (rule.dest == "A" || rule.dest == "R")
+                        return rule.dest
                     flow = rule.dest
                     break // don't evaluate more rules
                 }
@@ -105,38 +119,34 @@ hdj{m>838:A,pv}
             constructor() : this(1.. 4000, 1 .. 4000, 1 .. 4000, 1 .. 4000)
 
             fun translateRange(range: IntRange, rule: Rule) = when (rule.op) {
-                '*' -> range
-                '>' -> max(range.start, rule.num + 1) .. range.endInclusive
-                '<' -> range.start .. min(range.endInclusive, rule.num - 1)
-                else -> throw IllegalArgumentException()
+                Rule.Op.WILD -> range
+                Rule.Op.GT -> max(range.start, rule.num + 1) .. range.endInclusive
+                Rule.Op.LT -> range.start .. min(range.endInclusive, rule.num - 1)
             }
 
             fun translateRangeExclude(range: IntRange, rule: Rule) = when (rule.op) {
-                '*' -> IntRange.EMPTY
-                '>' -> range.start .. min(range.endInclusive, rule.num)   // <=
-                '<' -> max(range.start, rule.num) .. range.endInclusive
-                else -> throw IllegalArgumentException()
+                Rule.Op.WILD -> IntRange.EMPTY
+                Rule.Op.GT -> range.start .. min(range.endInclusive, rule.num)   // <=
+                Rule.Op.LT -> max(range.start, rule.num) .. range.endInclusive
             }
 
             fun limitTo(rule: Rule): PartRange {
-                if (rule.op == '*') return this
+                if (rule.op == Rule.Op.WILD) return this
                 when (rule.prop) {
-                    'x' -> return PartRange(translateRange(x, rule), m, a, s)
-                    'm' -> return PartRange(x, translateRange(m, rule), a, s)
-                    'a' -> return PartRange(x, m, translateRange(a, rule), s)
-                    's' -> return PartRange(x, m, a, translateRange(s, rule))
-                    else -> throw IllegalArgumentException()
+                    Prop.X -> return PartRange(translateRange(x, rule), m, a, s)
+                    Prop.M -> return PartRange(x, translateRange(m, rule), a, s)
+                    Prop.A -> return PartRange(x, m, translateRange(a, rule), s)
+                    Prop.S -> return PartRange(x, m, a, translateRange(s, rule))
                 }
             }
 
             fun limitExclude(rule: Rule): PartRange {
-                if (rule.op == '*') return PartRange(IntRange.EMPTY, IntRange.EMPTY, IntRange.EMPTY, IntRange.EMPTY)
+                if (rule.op == Rule.Op.WILD) return PartRange(IntRange.EMPTY, IntRange.EMPTY, IntRange.EMPTY, IntRange.EMPTY)
                 when (rule.prop) {
-                    'x' -> return PartRange(translateRangeExclude(x, rule), m, a, s)
-                    'm' -> return PartRange(x, translateRangeExclude(m, rule), a, s)
-                    'a' -> return PartRange(x, m, translateRangeExclude(a, rule), s)
-                    's' -> return PartRange(x, m, a, translateRangeExclude(s, rule))
-                    else -> throw IllegalArgumentException()
+                    Prop.X -> return PartRange(translateRangeExclude(x, rule), m, a, s)
+                    Prop.M-> return PartRange(x, translateRangeExclude(m, rule), a, s)
+                    Prop.A -> return PartRange(x, m, translateRangeExclude(a, rule), s)
+                    Prop.S -> return PartRange(x, m, a, translateRangeExclude(s, rule))
                 }
             }
         }

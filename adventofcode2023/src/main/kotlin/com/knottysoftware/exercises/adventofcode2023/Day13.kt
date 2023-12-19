@@ -28,18 +28,7 @@ class Day13 : Exercise {
     override val testResultPart2 = 400
 
     override suspend fun parse(lines: Flow<String>) {
-        val grids = mutableListOf<Grid<Char>>()
-        var grid = mutableListOf<String>()
-        for (line in lines.toList()) {
-            if (line == "") {
-                grids.add(gridFromStrings(grid))
-                grid = mutableListOf()
-            } else {
-                grid.add(line)
-            }
-        }
-        grids.add(gridFromStrings(grid))
-        this.grids = grids
+        grids = lines.toList().splitOnBlank().map(::gridFromStrings)
     }
 
     fun reflectionScore(grid: Grid<Char>, ignoreScore: Int = 0): Int {
