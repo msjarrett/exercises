@@ -61,6 +61,13 @@ fun <T> grid(items: List<List<T>>): Grid<T> {
     }
 }
 
+fun <T> grid(width: Int, height: Int, fill: T) =
+    grid(List(height) {
+        List(width) {
+            fill
+        }
+    })
+
 private fun charTransform(ch: Char): Char = ch
 
 fun <T> gridFromStrings(lines: List<String>, transform: (ch: Char) -> T): Grid<T> = grid(lines.map {
@@ -116,3 +123,11 @@ fun <T> Grid<T>.toMutableGrid(): MutableGrid<T> = mutableGrid(toList().map { it.
 fun Grid<*>.contains(p: Point) = p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY
 
 fun <T> Grid<T>.at(p: Point): T = at(p.x, p.y)
+
+fun <T> Grid<T>.visit(f: (x: Int, y: Int, v: T) -> Unit) {
+    for (y in 0 .. maxY) {
+        for (x in 0 .. maxX) {
+            f(x, y, at(x,y))
+        }
+    }
+}
