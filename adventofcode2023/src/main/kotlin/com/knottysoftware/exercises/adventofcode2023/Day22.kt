@@ -77,7 +77,7 @@ fun fallBricks(startBricks: List<Brick>): List<Brick> {
     val liveBricks = startBricks.toMutableList()
     val liveBlocked = startBricks.map { it.points() }.flatten().toMutableSet()
 
-    var changes
+    var changes: Int
     do {
         changes = 0
 
