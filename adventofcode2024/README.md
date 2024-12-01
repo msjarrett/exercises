@@ -14,3 +14,17 @@ Finally abandoning Gradle, in favor of [Bazel](https://bazel.build/). We use an 
 of Bazel at Google, so I expect it to be familiar. But really, anything that can replace Gradle
 will just make me happy. Gradle is supposed to be so smart and so automatic, but I spend more time
 fixing broken caches or forcing project refreshes when all I want to do is run something.
+
+## Puzzle inputs
+
+Puzzle inputs [are not supposed to be shared](https://adventofcode.com/2024/about) on GitHub.
+I've mostly ignored this in the past, but this time, I went to the effort the make a real
+downloader. Now puzzle inputs are kept in a local cache. `$HOME/aoc_cache/session` should include
+the session token captured from your logged in AOC cookie.
+
+## Other Changes
+
+I stopped with the parse-A-B structure. In 2023, it almost never led to any optimization, and
+just made development more complicated.
+
+I stuck with `suspend fun` for now. I'll find a way to use it... one day.
