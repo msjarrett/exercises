@@ -31,6 +31,21 @@ class SamplesTest {
     }
 
     @Test
+    fun testDay2() {
+        val sample = """
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
+        """
+
+        assertEquals(2, RunPuzzleWithText(2024, 2, "Sample A", ::Day2a, sample))
+        assertEquals(4, RunPuzzleWithText(2024, 2, "Sample B", ::Day2b, sample))
+    }
+
+    @Test
     fun testDay3() {
         assertEquals(161L, RunPuzzleWithText(2024, 3, "Sample A", ::Day3a, """xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"""))
         assertEquals(48L, RunPuzzleWithText(2024, 3, "Sample B", ::Day3b, """xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"""))

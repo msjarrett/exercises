@@ -12,6 +12,12 @@ class InputsTest {
     }
 
     @Test
+    fun testDay2() {
+        assertEquals(220, RunPuzzleWithInput(2024, 2, "Part A", ::Day2a))
+        assertEquals(296, RunPuzzleWithInput(2024, 2, "Part B", ::Day2b))
+    }
+
+    @Test
     fun testDay3() {
         assertEquals(191183308L, RunPuzzleWithInput(2024, 3, "Part A", ::Day3a))
         assertEquals(92082041L, RunPuzzleWithInput(2024, 3, "Part B", ::Day3b))
