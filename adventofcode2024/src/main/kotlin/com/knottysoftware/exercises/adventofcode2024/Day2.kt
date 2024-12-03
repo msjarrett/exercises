@@ -1,6 +1,8 @@
 package com.knottysoftware.exercises.adventofcode2024
 
-import java.util.stream.Stream
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import kotlin.math.abs
 
 fun IsSafe(levels: List<Int>): Boolean {
@@ -26,17 +28,17 @@ fun MetaIsSafe(levels: List<Int>): Boolean {
     return false
 }
 
-suspend fun Day2a(lines: Stream<String>): Any {
-    return lines.mapToInt {
+suspend fun Day2a(lines: Flow<String>): Any {
+    return lines.map {
         val levels = it.split(" ").map { it.toInt() }
         //println(levels)
         if (IsSafe(levels)) 1 else 0
-    }.sum()
+    }.toList().sum()
 }
 
-suspend fun Day2b(lines: Stream<String>): Any {
-    return lines.mapToInt {
+suspend fun Day2b(lines: Flow<String>): Any {
+    return lines.map {
         val levels = it.split(" ").map { it.toInt() }
         if (IsSafe(levels) || MetaIsSafe(levels)) 1 else 0
-    }.sum()
+    }.toList().sum()
 }

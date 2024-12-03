@@ -7,19 +7,19 @@ import org.junit.Assert.assertEquals
 class InputsTest {
     @Test
     fun testDay1() {
-        assertEquals(2367773, RunPuzzleWithInput(2024, 1, "Part A", ::Day1a))
-        assertEquals(21271939, RunPuzzleWithInput(2024, 1, "Part B", ::Day1b))
+        assertEquals(2367773, RunPuzzleWithInput(::Day1a, 2024, 1))
+        assertEquals(21271939, RunPuzzleWithInput(::Day1b, 2024, 1))
     }
 
     @Test
     fun testDay2() {
-        assertEquals(220, RunPuzzleWithInput(2024, 2, "Part A", ::Day2a))
-        assertEquals(296, RunPuzzleWithInput(2024, 2, "Part B", ::Day2b))
+        assertEquals(220, RunPuzzleWithInput(::Day2a, 2024, 2))
+        assertEquals(296, RunPuzzleWithInput(::Day2b, 2024, 2))
     }
 
     @Test
     fun testDay3() {
-        assertEquals(191183308L, RunPuzzleWithInput(2024, 3, "Part A", ::Day3a))
-        assertEquals(92082041L, RunPuzzleWithInput(2024, 3, "Part B", ::Day3b))
+        assertEquals(191183308L, RunPuzzleWithInput(::Day3a, 2024, 3))
+        assertEquals(92082041L, RunPuzzleWithInput(::Day3b, 2024, 3))
     }
 }

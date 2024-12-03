@@ -1,12 +1,12 @@
 package com.knottysoftware.exercises.adventofcode2024
 
-import java.util.stream.Stream
+import kotlinx.coroutines.flow.Flow
 import kotlin.math.abs
 
-suspend fun Day1a(lines: Stream<String>): Any {
+suspend fun Day1a(lines: Flow<String>): Any {
     val list1 = mutableListOf<Int>()
     val list2 = mutableListOf<Int>()
-    lines.forEach {
+    lines.collect {
         val items = it.split(" ")
         list1.add(items.first().toInt())
         list2.add(items.last().toInt())
@@ -22,10 +22,10 @@ suspend fun Day1a(lines: Stream<String>): Any {
     return delta
 }
 
-suspend fun Day1b(lines: Stream<String>): Any {
+suspend fun Day1b(lines: Flow<String>): Any {
     val list1 = mutableListOf<Int>()
     val list2 = mutableListOf<Int>()
-    lines.forEach {
+    lines.collect {
         val items = it.split(" ")
         list1.add(items.first().toInt())
         list2.add(items.last().toInt())

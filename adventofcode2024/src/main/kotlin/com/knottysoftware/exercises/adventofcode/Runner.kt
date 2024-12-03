@@ -1,30 +1,42 @@
 package com.knottysoftware.exercises.adventofcode
 
-import java.nio.file.Files
-import java.util.Arrays
-import java.util.stream.Stream
+import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.runBlocking
 
-typealias Puzzle = suspend (Stream<String>) -> Any
+typealias Puzzle = suspend (Flow<String>) -> Any
 
-fun RunPuzzle(lines: Stream<String>, name: String, puzzle: Puzzle): Any {
-    println("=== START $name")
+
+// Borrowed from https://slack-chats.kotlinlang.org/t/454925/any-built-in-way-to-create-a-flow-of-lines-from-a-file-on-jv
+private fun File.lineFlow(): Flow<String> {
+    val reader = bufferedReader()
+    return reader.buffered()
+        .lineSequence()
+        .asFlow()
+        .onCompletion { reader.close() }
+        .flowOn(Dispatchers.IO)
+}
+
+private fun RunPuzzle(lines: Flow<String>, puzzle: Puzzle): Any {
+    println("=== START")
     val result = runBlocking {
         puzzle(lines)
     }
     println("RESULT $result")
-    println("===   END $name")
+    println("=== END")
     return result
 }
 
-fun RunPuzzleWithInput(year: Int, day: Int, part: String, puzzle: Puzzle) =
+fun RunPuzzleWithInput(puzzle: Puzzle, year: Int, day: Int) =
     RunPuzzle(
-        Files.lines(GetPuzzleInput(year, day)),
-        "Puzzle $year-$day ($part)",
+        File(GetPuzzleInput(year, day).toUri()).lineFlow(),
         puzzle)
 
-fun RunPuzzleWithText(year: Int, day: Int, part: String, puzzle: Puzzle, input: String) =
+fun RunPuzzleWithText(puzzle: Puzzle, input: String) =
     RunPuzzle(
-        input.trimIndent().split("\n").stream(),
-        "Puzzle $year-$day ($part)",
+        input.trimIndent().split("\n").asFlow(),
         puzzle)

@@ -9,6 +9,9 @@ java_binary(
 
 java_binary(
     name = "downloader",
+
+
+    
     main_class = "com.knottysoftware.exercises.adventofcode.InputDownloaderKt",
     runtime_deps = ["//src/main/kotlin/com/knottysoftware/exercises/adventofcode"],
 )

@@ -1,28 +1,29 @@
 package com.knottysoftware.exercises.adventofcode2024
 
-import java.util.stream.Stream
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
-suspend fun Day3a(lines: Stream<String>): Any {
+suspend fun Day3a(lines: Flow<String>): Any {
     val pattern = Regex("""mul\((\d+),(\d+)\)""")
 
-    return lines.mapToLong {
+    return lines.map {
         println (it)
         pattern.findAll(it as String).map { match ->
             //println(match.value)
             val g = match.groupValues
             g[1].toLong() * g[2].toLong()
         }.sum()
-    }.sum()
+    }.toList().sum()
 }
 
-suspend fun Day3b(lines: Stream<String>): Any {
+suspend fun Day3b(lines: Flow<String>): Any {
     val pattern = Regex("""(mul\((\d+),(\d+)\))|(do\(\))|(don't\(\))""")
 
-    val opsList = buildList() {
-        lines.forEach {
-            addAll(pattern.findAll(it))
-        }
-    }
+    val opsList = lines.map {
+        pattern.findAll(it)
+    }.toList().flatMap { it.toList() }
 
     var enabled = true
     var sum = 0L
