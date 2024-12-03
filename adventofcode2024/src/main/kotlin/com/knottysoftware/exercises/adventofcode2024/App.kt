@@ -4,18 +4,11 @@ import com.knottysoftware.exercises.adventofcode.RunPuzzleWithInput
 import com.knottysoftware.exercises.adventofcode.RunPuzzleWithText
 
 fun main(args: Array<String>) {
-    val sample =         """
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-        """
+    //val sample = """xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))"""
+    val sample = """xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"""
+    //RunPuzzleWithText(2024, 3, "Sample A", ::Day3a, sample)
+    //RunPuzzleWithInput(2024, 3, "Part A", ::Day3a)
 
-    RunPuzzleWithText(2024, 1, "Sample A", ::Day1a, sample)
-    RunPuzzleWithInput(2024, 1, "Part A", ::Day1a)
-
-    RunPuzzleWithText(2024, 1, "Sample B", ::Day1b, sample)
-    RunPuzzleWithInput(2024, 1, "Part B", ::Day1b)
+    //RunPuzzleWithText(2024, 3, "Sample B", ::Day3b, sample)
+    RunPuzzleWithInput(2024, 3, "Part B", ::Day3b)
 }

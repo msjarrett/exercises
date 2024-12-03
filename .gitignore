@@ -6,4 +6,5 @@
 .gradle
 
 # Ignore Gradle build output directory
-build
+# ... but it's needed for Bazel, so ignore dirs only
+build/
