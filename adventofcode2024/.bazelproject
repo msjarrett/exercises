@@ -1,0 +1,13 @@
+directories:
+  .
+
+targets:
+  //:app
+  //:SamplesTest
+  //:InputsTest
+
+additional_languages:
+  kotlin
+
+workspace_type: java
+
