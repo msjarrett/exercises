@@ -1,4 +1,4 @@
-package com.knottysoftware.exercises.adventofcode
+package com.knottysoftware.exercises.adventofcode.runner
 
 import java.net.URL
 import java.nio.charset.StandardCharsets

@@ -1,6 +1,6 @@
 package com.knottysoftware.exercises.adventofcode2024
 
-import com.knottysoftware.exercises.adventofcode.RunPuzzleWithText
+import com.knottysoftware.exercises.adventofcode.runner.RunPuzzleWithText
 import org.junit.Test
 import org.junit.Assert.assertEquals
 

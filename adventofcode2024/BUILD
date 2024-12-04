@@ -1,5 +1,3 @@
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-
 # There is a kt_jvm_binary rule, but it generates a bash script, which isn't so helpful on Windows.
 java_binary(
     name = "app",
@@ -9,17 +7,16 @@ java_binary(
 
 java_binary(
     name = "downloader",
-
-
-    
-    main_class = "com.knottysoftware.exercises.adventofcode.InputDownloaderKt",
-    runtime_deps = ["//src/main/kotlin/com/knottysoftware/exercises/adventofcode"],
+    main_class = "com.knottysoftware.exercises.adventofcode.runner.InputDownloaderKt",
+    runtime_deps = ["//src/main/kotlin/com/knottysoftware/exercises/adventofcode/runner"],
 )
 
 java_test(
     name = "SamplesTest",
     test_class = "com.knottysoftware.exercises.adventofcode2024.SamplesTest",
-    runtime_deps = ["//src/test/kotlin/com/knottysoftware/exercises/adventofcode2024"],
+    runtime_deps = [
+        "//src/test/kotlin/com/knottysoftware/exercises/adventofcode2024",
+    ],
 )
 
 java_test(

@@ -1,4 +1,4 @@
-package com.knottysoftware.exercises.adventofcode
+package com.knottysoftware.exercises.adventofcode.runner
 
 import java.io.File
 import kotlinx.coroutines.Dispatchers

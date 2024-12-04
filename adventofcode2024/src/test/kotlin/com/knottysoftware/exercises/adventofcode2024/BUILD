@@ -6,7 +6,7 @@ kt_jvm_library(
     srcs = glob(["*.kt"]),
     visibility = ["//visibility:public"],
     deps = [
-        "//src/main/kotlin/com/knottysoftware/exercises/adventofcode",
+        "//src/main/kotlin/com/knottysoftware/exercises/adventofcode/runner",
         "//src/main/kotlin/com/knottysoftware/exercises/adventofcode2024",
         "@maven//:junit_junit",
     ],
