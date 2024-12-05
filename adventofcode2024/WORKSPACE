@@ -72,3 +72,35 @@ contrib_rules_jvm_deps()
 
 load("@contrib_rules_jvm//:setup.bzl", "contrib_rules_jvm_setup")
 contrib_rules_jvm_setup()
+
+
+# ===== Fixers/linters =====
+http_archive(
+    name = "aspect_rules_lint",
+    sha256 = "3d8375a6f5f835d303fb30a453aa75747298e3eb92ef5927e2b7d5f0fbfaf8a5",
+    strip_prefix = "rules_lint-1.0.6",
+    url = "https://github.com/aspect-build/rules_lint/releases/download/v1.0.6/rules_lint-v1.0.6.tar.gz",
+)
+
+http_archive(
+    name = "aspect_bazel_lib",
+    sha256 = "6d758a8f646ecee7a3e294fbe4386daafbe0e5966723009c290d493f227c390b",
+    strip_prefix = "bazel-lib-2.7.7",
+    url = "https://github.com/aspect-build/bazel-lib/releases/download/v2.7.7/bazel-lib-v2.7.7.tar.gz",
+)
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
+aspect_bazel_lib_dependencies()
+
+load(
+    "@aspect_rules_lint//format:repositories.bzl",
+    # Fetch additional formatter binaries you need:
+    "fetch_ktfmt",    
+    "rules_lint_dependencies",
+)
+
+rules_lint_dependencies()
+fetch_ktfmt()
+
+load("@aspect_rules_lint//lint:ktlint.bzl", "fetch_ktlint")
+fetch_ktlint()
