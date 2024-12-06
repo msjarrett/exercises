@@ -106,4 +106,23 @@ MXMXAXMASX
         assertEquals(143, RunPuzzleWithText(::Day5a, sample))
         assertEquals(123, RunPuzzleWithText(::Day5b, sample))
     }
+
+    @Test
+    fun testDay6() {
+        val sample = """
+....#.....
+.........#
+..........
+..#.......
+.......#..
+..........
+.#..^.....
+........#.
+#.........
+......#...
+        """
+
+        assertEquals(41, RunPuzzleWithText(::Day6a, sample))
+        assertEquals(6, RunPuzzleWithText(::Day6b, sample))
+    }
 }

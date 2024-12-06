@@ -118,6 +118,11 @@ fun <T> mutableGrid(width: Int, height: Int, init: (x: Int, y: Int) -> T) =
     })
 
 
+fun <T> mutableGrid(width: Int, height: Int, defaultValue: T) =
+    mutableGrid(width, height) { _, _ ->
+        defaultValue
+    }
+
 fun <T> Grid<T>.toMutableGrid(): MutableGrid<T> = mutableGrid(toList().map { it.toMutableList() })
 
 fun Grid<*>.contains(p: Point) = p.x >= 0 && p.y >= 0 && p.x <= maxX && p.y <= maxY
@@ -130,4 +135,12 @@ fun <T> Grid<T>.visit(f: (x: Int, y: Int, v: T) -> Unit) {
             f(x, y, at(x,y))
         }
     }
+}
+
+fun <T> Grid<T>.count(filter: (v: T) -> Boolean): Int {
+    var matched = 0
+    this.visit { x, y, v ->
+        if (filter(v)) matched++
+    }
+    return matched
 }
