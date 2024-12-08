@@ -1,10 +1,10 @@
 package com.knottysoftware.exercises.adventofcode2024
 
 import com.knottysoftware.exercises.adventofcode.runner.RunPuzzleWithInput
-import com.knottysoftware.exercises.adventofcode.runner.RunPuzzleWithText
 
 fun main(args: Array<String>) {
-    val sample = """
+  val sample =
+      """
 ............
 ........0...
 .....0......
@@ -18,6 +18,6 @@ fun main(args: Array<String>) {
 ............
 ............
     """
-    //RunPuzzleWithText(::Day8b, sample)
-    RunPuzzleWithInput(::Day8b, 2024, 8)
+  // RunPuzzleWithText(::Day8b, sample)
+  RunPuzzleWithInput(::Day8b, 2024, 8)
 }

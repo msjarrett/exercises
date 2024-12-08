@@ -1,5 +1,3 @@
-load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
-
 # There is a kt_jvm_binary rule, but it generates a bash script, which isn't so helpful on Windows.
 java_binary(
     name = "app",
@@ -23,11 +21,16 @@ java_test(
 
 java_test(
     name = "InputsTest",
+
+    # Test needs filesystem access to write $HOME/aoc_cache.
+    # Alternatively, we could comment this out, and rely on --spawn_strategy=local on individual
+    # executions.
+    local = True,
     test_class = "com.knottysoftware.exercises.adventofcode2024.InputsTest",
     runtime_deps = ["//src/test/kotlin/com/knottysoftware/exercises/adventofcode2024"],
 )
 
-# This also does not work on Windows. Urgh.
-format_multirun(
-    name= "format",
+alias(
+    name = "format",
+    actual = "//tools/format",
 )
