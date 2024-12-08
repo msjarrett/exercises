@@ -15,6 +15,14 @@ of Bazel at Google, so I expect it to be familiar. But really, anything that can
 will just make me happy. Gradle is supposed to be so smart and so automatic, but I spend more time
 fixing broken caches or forcing project refreshes when all I want to do is run something.
 
+## IDE and Environment
+
+I hate Gradle. It fails the core of any software test: if you push the button to do the primary
+thing your software does, it should work. Gradle often doesn't, usually because "some cache
+issue".
+
+Instead of IntelliJ this year, I started with Android Studio on Windows. 
+
 ## Puzzle inputs
 
 Puzzle inputs [are not supposed to be shared](https://adventofcode.com/2024/about) on GitHub.
