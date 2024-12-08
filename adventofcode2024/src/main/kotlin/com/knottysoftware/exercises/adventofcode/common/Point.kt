@@ -1,6 +1,7 @@
 package com.knottysoftware.exercises.adventofcode.common
 
 import kotlin.math.abs
+import kotlin.math.min
 
 enum class Direction {
     UP {
@@ -86,5 +87,33 @@ data class Point(val x: Int = 0, val y: Int = 0) {
         return null
     }
 
+    fun slopeTo(dest: Point): Point {
+        val dx = dest.x - x
+        val dy = dest.y - y
+
+        if (dx == 0 && dy == 0) return Point(0, 0)
+        else if (dx == 0) return Point(0, if (dy < 0) -1 else 1)
+        else if (dy == 0) return Point(if (dx < 0) -1 else 1, 0)
+        else {
+            val g = gcd(dx, dy)
+            return Point(dx / g, dy / g)
+        }
+    }
+
     fun manhattanDistanceTo(dest: Point): Int = abs(x - dest.x) + abs(y - dest.y)
+}
+
+
+private fun gcd(a: Int, b: Int): Int {
+     var absA = abs(a)
+     var absB = abs(b)
+     val checkTo = min(absA, absB)
+
+    var best = 1
+
+    // TODO: Better this
+    for (i in 2 .. checkTo) {
+        if (absA % i  == 0 && absB % i == 0) best = i
+    }
+    return best
 }
