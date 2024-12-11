@@ -10,7 +10,7 @@ import kotlin.text.StringBuilder
 value class Disk(val ranges: List<Pair<Int, Int>>) {
     override fun toString(): String {
         val s = StringBuilder()
-        for (r in ranges) {
+        for (r in ranges.take(30)) {
             val c = if (r.first == -1) '.' else if (r.first > 9) 'X' else ((r.first + '0'.code).toChar())
             repeat(r.second) {
                 s.append(c)
@@ -115,7 +115,7 @@ value class Disk(val ranges: List<Pair<Int, Int>>) {
             right--
         }
 
-        return Disk(newRanges)
+        return Disk(newRanges.filter { it.second > 0})
     }
 
     fun checksum(): Long {        
