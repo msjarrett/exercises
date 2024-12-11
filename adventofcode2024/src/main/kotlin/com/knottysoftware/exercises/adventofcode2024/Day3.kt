@@ -11,7 +11,7 @@ suspend fun Day3a(lines: Flow<String>): Any {
       .map {
         println(it)
         pattern
-            .findAll(it as String)
+            .findAll(it)
             .map { match ->
               // println(match.value)
               val g = match.groupValues

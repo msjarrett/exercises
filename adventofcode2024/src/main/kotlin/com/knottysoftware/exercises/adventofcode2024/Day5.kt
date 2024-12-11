@@ -46,7 +46,7 @@ private fun fixOrder(pages: PageList, rules: List<Rule>): PageList {
   // If two items are out of order, we move the second item to immediately before the first, and
   // restart.
   // Swaps might be more efficient but I don't want to prove it works.
-  var swapped = false
+  var swapped: Boolean
   do {
     swapped = false
     for (j in 1 ..< newPages.size) {

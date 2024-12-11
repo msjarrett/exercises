@@ -32,7 +32,7 @@ suspend fun Day6a(lines: Flow<String>): Any {
 
 fun createsLoop(grid: Grid<Char>, guardStart: Point, obstruction: Point): Boolean {
   val visited =
-      mutableGrid<MutableList<Direction>>(grid.width, grid.height) { x, y ->
+      mutableGrid<MutableList<Direction>>(grid.width, grid.height) { _, _ ->
         // We need a NEW MutableList for each tile.
         mutableListOf<Direction>()
       }

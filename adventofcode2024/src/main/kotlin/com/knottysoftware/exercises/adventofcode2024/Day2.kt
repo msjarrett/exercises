@@ -20,7 +20,7 @@ fun MetaIsSafe(levels: List<Int>): Boolean {
   // We probably don't have to check EVERY value, but the levels lists are very short, so
   // there is not really a point to not doing it.
   for (i in 0 ..< levels.size) {
-    if (IsSafe(levels.filterIndexed { j, v -> j != i })) return true
+    if (IsSafe(levels.filterIndexed { j, _ -> j != i })) return true
   }
   return false
 }

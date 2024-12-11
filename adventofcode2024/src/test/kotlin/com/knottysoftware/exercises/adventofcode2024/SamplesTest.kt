@@ -6,7 +6,7 @@ import org.junit.Test
 
 class SamplesTest {
   @Test
-  fun testDay0() {
+  fun testDay00() {
     assertEquals(
         10,
         RunPuzzleWithText(::Day0, """
@@ -17,7 +17,7 @@ class SamplesTest {
   }
 
   @Test
-  fun testDay1() {
+  fun testDay01() {
     val sample =
         """
             3   4
@@ -33,7 +33,7 @@ class SamplesTest {
   }
 
   @Test
-  fun testDay2() {
+  fun testDay02() {
     val sample = """
 7 6 4 2 1
 1 2 7 8 9
@@ -48,7 +48,7 @@ class SamplesTest {
   }
 
   @Test
-  fun testDay3() {
+  fun testDay03() {
     assertEquals(
         161L,
         RunPuzzleWithText(
@@ -61,7 +61,7 @@ class SamplesTest {
   }
 
   @Test
-  fun testDay4() {
+  fun testDay04() {
     val sample =
         """
 MMMSXXMASM
@@ -81,7 +81,7 @@ MXMXAXMASX
   }
 
   @Test
-  fun testDay5() {
+  fun testDay05() {
     val sample =
         """
 47|53
@@ -119,7 +119,7 @@ MXMXAXMASX
   }
 
   @Test
-  fun testDay6() {
+  fun testDay06() {
     val sample =
         """
 ....#.....
@@ -139,7 +139,7 @@ MXMXAXMASX
   }
 
   @Test
-  fun testDay7() {
+  fun testDay07() {
     val sample =
         """
 190: 10 19
@@ -158,7 +158,7 @@ MXMXAXMASX
   }
 
   @Test
-  fun testDay8() {
+  fun testDay08() {
     val sample =
         """
 ............
@@ -177,5 +177,32 @@ MXMXAXMASX
 
     assertEquals(14, RunPuzzleWithText(::Day8a, sample))
     assertEquals(34, RunPuzzleWithText(::Day8b, sample))
+  }
+
+
+  @Test
+  fun testDay09() {
+    val sample = "2333133121414131402"
+
+    assertEquals(1928L, RunPuzzleWithText(::Day9a, sample))
+    assertEquals(2858L, RunPuzzleWithText(::Day9b, sample))
+  }
+
+  @Test
+  fun testDay10() {
+    val sample =
+        """
+89010123
+78121874
+87430965
+96549874
+45678903
+32019012
+01329801
+10456732
+        """
+
+    assertEquals(36, RunPuzzleWithText(::Day10a, sample))
+    assertEquals(81, RunPuzzleWithText(::Day10b, sample))
   }
 }

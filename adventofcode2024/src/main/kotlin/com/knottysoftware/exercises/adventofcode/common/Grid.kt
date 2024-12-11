@@ -123,6 +123,6 @@ fun <T> Grid<T>.visit(f: (x: Int, y: Int, v: T) -> Unit) {
 
 fun <T> Grid<T>.count(filter: (v: T) -> Boolean): Int {
   var matched = 0
-  this.visit { x, y, v -> if (filter(v)) matched++ }
+  this.visit { _, _, v -> if (filter(v)) matched++ }
   return matched
 }
