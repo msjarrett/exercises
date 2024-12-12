@@ -63,8 +63,10 @@ enum class Direction {
 
   // Turn left 90'
   abstract fun turnLeft(): Direction
+
   // Turn right 90'
   abstract fun turnRight(): Direction
+
   // Turn right 90'
   abstract fun turnReverse(): Direction
 

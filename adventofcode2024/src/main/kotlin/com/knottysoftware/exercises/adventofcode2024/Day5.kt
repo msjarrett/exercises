@@ -29,8 +29,8 @@ private suspend fun parsePageRules(lines: Flow<String>): Pair<List<Rule>, List<P
 }
 
 private fun isValid(pages: PageList, rules: List<Rule>): Boolean {
-  for (after in 1 ..< pages.size) {
-    for (before in 0 ..< after) {
+  for (after in 1..<pages.size) {
+    for (before in 0..<after) {
       // There must not be a rule that says after|before.
       for (r in rules) {
         if (r.first == pages[after] && r.second == pages[before]) return false
@@ -49,8 +49,8 @@ private fun fixOrder(pages: PageList, rules: List<Rule>): PageList {
   var swapped: Boolean
   do {
     swapped = false
-    for (j in 1 ..< newPages.size) {
-      for (i in 0 ..< j) {
+    for (j in 1..<newPages.size) {
+      for (i in 0..<j) {
         for (r in rules) {
           if (r.first == newPages[j] && r.second == newPages[i]) {
             newPages.add(i, newPages.removeAt(j))
@@ -62,7 +62,7 @@ private fun fixOrder(pages: PageList, rules: List<Rule>): PageList {
     }
   } while (swapped)
 
-  //println("$pages -> $newPages")
+  // println("$pages -> $newPages")
   check(isValid(newPages, rules))
   return newPages
 }

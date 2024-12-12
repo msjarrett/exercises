@@ -1,10 +1,9 @@
 package com.knottysoftware.exercises.adventofcode2024
 
 import com.knottysoftware.exercises.adventofcode.common.*
+import kotlin.collections.forEach
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
-
-import kotlin.collections.forEach
 
 suspend fun Day12a(lines: Flow<String>): Any {
   val grid = gridFromStrings(lines.toList())
@@ -14,13 +13,12 @@ suspend fun Day12a(lines: Flow<String>): Any {
 
   grid.visit { x, y, _ ->
     if (!visited.at(x, y)) {
-        cost += costRegion(Point(x, y), grid, visited)
+      cost += costRegion(Point(x, y), grid, visited)
     }
   }
 
   return cost
 }
-
 
 suspend fun Day12b(lines: Flow<String>): Any {
   val grid = gridFromStrings(lines.toList())
@@ -30,7 +28,7 @@ suspend fun Day12b(lines: Flow<String>): Any {
 
   grid.visit { x, y, _ ->
     if (!visited.at(x, y)) {
-        cost += costRegion2(Point(x, y), grid, visited)
+      cost += costRegion2(Point(x, y), grid, visited)
     }
   }
 
@@ -66,7 +64,7 @@ private fun costRegion(start: Point, grid: Grid<Char>, visited: MutableGrid<Bool
   }
 
   val cost = area * perim
-  //println("Region $plant ($start): area $area perim $perim = $cost")
+  // println("Region $plant ($start): area $area perim $perim = $cost")
   return cost
 }
 
@@ -93,9 +91,11 @@ private fun costRegion2(start: Point, grid: Grid<Char>, visited: MutableGrid<Boo
     if (p.y == grid.maxY) edges.add(Pair(p, Direction.DOWN))
 
     if (p.x > 0 && grid.at(p.move(Direction.LEFT)) != plant) edges.add(Pair(p, Direction.LEFT))
-    if (p.x < grid.maxX && grid.at(p.move(Direction.RIGHT)) != plant) edges.add(Pair(p, Direction.RIGHT))
+    if (p.x < grid.maxX && grid.at(p.move(Direction.RIGHT)) != plant)
+        edges.add(Pair(p, Direction.RIGHT))
     if (p.y > 0 && grid.at(p.move(Direction.UP)) != plant) edges.add(Pair(p, Direction.UP))
-    if (p.y < grid.maxY && grid.at(p.move(Direction.DOWN)) != plant) edges.add(Pair(p, Direction.DOWN))
+    if (p.y < grid.maxY && grid.at(p.move(Direction.DOWN)) != plant)
+        edges.add(Pair(p, Direction.DOWN))
 
     Direction.cardinalDirections.forEach { queue.addDFS(p.move(it)) }
   }
@@ -114,20 +114,19 @@ private fun costRegion2(start: Point, grid: Grid<Char>, visited: MutableGrid<Boo
     val leftDir = dir.turnLeft()
     p = edgePair.first.move(leftDir)
     while (edges.contains(Pair(p, dir))) {
-        edgesVisited.add(Pair(p, dir))
-        p = p.move(leftDir)
+      edgesVisited.add(Pair(p, dir))
+      p = p.move(leftDir)
     }
 
     val rightDir = dir.turnRight()
     p = edgePair.first.move(rightDir)
     while (edges.contains(Pair(p, dir))) {
-        edgesVisited.add(Pair(p, dir))
-        p = p.move(rightDir)
-    }    
+      edgesVisited.add(Pair(p, dir))
+      p = p.move(rightDir)
+    }
   }
 
-
   val cost = area * sides
-  //println("Region $plant ($start): area $area sides $sides = $cost")
+  // println("Region $plant ($start): area $area sides $sides = $cost")
   return cost
 }

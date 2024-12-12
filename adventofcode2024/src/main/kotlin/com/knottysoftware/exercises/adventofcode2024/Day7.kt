@@ -14,7 +14,7 @@ private fun testEquation(line: String): TestEquation {
   val separator = line.indexOf(':')
   check(separator != -1)
   return TestEquation(
-      line.substring(0 ..< separator).toLong(),
+      line.substring(0..<separator).toLong(),
       line.substring(separator + 2).split(" ").map { it.toLong() })
 }
 

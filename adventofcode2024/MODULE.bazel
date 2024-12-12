@@ -10,7 +10,6 @@ bazel_dep(
     version = "1.9.6",
 )
 
-
 # Maven for Java/Kotlin deps
 bazel_dep(name = "rules_jvm_external", version = "6.3")
 
@@ -22,9 +21,7 @@ maven.install(
         "com.facebook:ktfmt:0.53",
     ],
 )
-
 use_repo(maven, "maven")
-
 
 # rules_lint for formatting.
 bazel_dep(name = "aspect_rules_lint", version = "1.0.6")

@@ -9,7 +9,7 @@ suspend fun Day3a(lines: Flow<String>): Any {
 
   return lines
       .map {
-        //println(it)
+        // println(it)
         pattern
             .findAll(it)
             .map { match ->

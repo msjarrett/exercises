@@ -9,7 +9,9 @@ class SamplesTest {
   fun testDay00() {
     assertEquals(
         10,
-        RunPuzzleWithText(::Day0, """
+        RunPuzzleWithText(
+            ::Day0,
+            """
             meep
             beep
             ok
@@ -34,7 +36,8 @@ class SamplesTest {
 
   @Test
   fun testDay02() {
-    val sample = """
+    val sample =
+        """
 7 6 4 2 1
 1 2 7 8 9
 9 7 6 2 1
@@ -178,7 +181,6 @@ MXMXAXMASX
     assertEquals(14, RunPuzzleWithText(::Day8a, sample))
     assertEquals(34, RunPuzzleWithText(::Day8b, sample))
   }
-
 
   @Test
   fun testDay09() {

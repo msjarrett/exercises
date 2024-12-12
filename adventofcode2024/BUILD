@@ -1,18 +1,17 @@
 # There is a kt_jvm_binary rule, but it generates a bash script, which isn't so helpful on Windows.
 java_binary(
     name = "run_sample",
+    args = ["sample"],
     main_class = "com.knottysoftware.exercises.adventofcode2024.AppKt",
     runtime_deps = ["//src/main/kotlin/com/knottysoftware/exercises/adventofcode2024"],
-    args = ["sample"]
 )
 
 java_binary(
     name = "run_input",
+    args = ["input"],
     main_class = "com.knottysoftware.exercises.adventofcode2024.AppKt",
     runtime_deps = ["//src/main/kotlin/com/knottysoftware/exercises/adventofcode2024"],
-    args = ["input"],
 )
-
 
 java_binary(
     name = "downloader",

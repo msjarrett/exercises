@@ -27,15 +27,15 @@ private fun Day8(lines: List<String>, modeFirst: Boolean): Int {
     // println ("CHECKING $freq")
     antinodes.addAll(findAntinodes(antennas[freq]!!.toList(), grid, modeFirst))
   }
-  //println(antinodes)
+  // println(antinodes)
   return antinodes.size
 }
 
 private fun findAntinodes(antennas: List<Point>, grid: Grid<*>, modeFirst: Boolean): Set<Point> {
   val nodes = mutableSetOf<Point>()
 
-  for (i in 0 ..< antennas.size) {
-    for (j in (i + 1) ..< antennas.size) {
+  for (i in 0..<antennas.size) {
+    for (j in (i + 1)..<antennas.size) {
       val a = antennas[i]
       val b = antennas[j]
 

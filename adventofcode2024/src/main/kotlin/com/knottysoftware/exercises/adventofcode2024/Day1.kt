@@ -15,7 +15,7 @@ suspend fun Day1a(lines: Flow<String>): Any {
   list2.sort()
 
   var delta = 0
-  for (i in 0 ..< list1.size) {
+  for (i in 0..<list1.size) {
     delta += abs(list1[i] - list2[i])
   }
 

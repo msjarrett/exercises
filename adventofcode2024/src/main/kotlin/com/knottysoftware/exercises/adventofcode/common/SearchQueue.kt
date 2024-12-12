@@ -56,7 +56,7 @@ class SearchQueue<T>() : Iterable<T> {
   }
 
   fun addScored(value: T, score: Int) {
-    for (i in 0 ..< queue.size) {
+    for (i in 0..<queue.size) {
       if (queue[i].second > score) {
         queue.add(i, Pair(value, score))
         return
