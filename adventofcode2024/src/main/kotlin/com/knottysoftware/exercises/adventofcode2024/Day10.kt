@@ -44,7 +44,7 @@ private fun findNines(map: Grid<Char>, trailhead: Point): Int {
             if (gridValue == '9') {
                 count++
             } else {
-                val candidates = listOf(p.move(Direction.UP), p.move(Direction.DOWN), p.move(Direction.LEFT), p.move(Direction.RIGHT))
+                val candidates = Direction.cardinalDirections.map { p.move(it) }
                 for (c in candidates) {
                     if (map.contains(c) && map.at(c) == (gridValue + 1)) {
                         queue.addDFS(c)
@@ -66,7 +66,7 @@ private fun rateTrail(map: Grid<Char>, trailhead: Point): Int {
         if (gridValue == '9') {
             count++
         } else {
-            val candidates = listOf(p.move(Direction.UP), p.move(Direction.DOWN), p.move(Direction.LEFT), p.move(Direction.RIGHT))
+            val candidates = Direction.cardinalDirections.map { p.move(it) }
             for (c in candidates) {
                 if (map.contains(c) && map.at(c) == (gridValue + 1)) {
                     queue.addDFS(c)

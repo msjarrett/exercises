@@ -70,4 +70,10 @@ class InputsTest {
     assertEquals(186203, RunPuzzleWithInput(::Day11a, 2024, 11))
     assertEquals(221291560078593L, RunPuzzleWithInput(::Day11b, 2024, 11))
   }
+
+  @Test
+  fun testDay12() {
+    assertEquals(1381056, RunPuzzleWithInput(::Day12a, 2024, 12))
+    assertEquals(834828, RunPuzzleWithInput(::Day12b, 2024, 12))
+  }
 }

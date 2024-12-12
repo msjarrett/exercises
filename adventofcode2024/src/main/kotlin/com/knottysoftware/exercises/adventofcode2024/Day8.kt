@@ -27,7 +27,7 @@ private fun Day8(lines: List<String>, modeFirst: Boolean): Int {
     // println ("CHECKING $freq")
     antinodes.addAll(findAntinodes(antennas[freq]!!.toList(), grid, modeFirst))
   }
-  println(antinodes)
+  //println(antinodes)
   return antinodes.size
 }
 

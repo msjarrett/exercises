@@ -62,7 +62,7 @@ private fun fixOrder(pages: PageList, rules: List<Rule>): PageList {
     }
   } while (swapped)
 
-  println("$pages -> $newPages")
+  //println("$pages -> $newPages")
   check(isValid(newPages, rules))
   return newPages
 }

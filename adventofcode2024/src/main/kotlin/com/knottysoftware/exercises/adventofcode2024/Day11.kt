@@ -19,7 +19,7 @@ suspend fun Day11b(lines: Flow<String>): Any {
 fun blinkUpdate(initialStones: List<Long>, iterations: Int): List<Long> {
     // Presumably with so many updates, MutableList should be more efficient than recreating immutable lists.
     val stones = initialStones.toMutableList()
-    repeat(iterations) { iter ->
+    repeat(iterations) { //iter ->
         var i = 0
         // Size can update as we go.
         while (i < stones.size) {
@@ -37,8 +37,8 @@ fun blinkUpdate(initialStones: List<Long>, iterations: Int): List<Long> {
             }
         }
 
-        println("Iteration ${iter + 1} done. Size ${stones.size}.")
-        println(stones)
+        //println("Iteration ${iter + 1} done. Size ${stones.size}.")
+        //println(stones)
     }
     return stones
 }

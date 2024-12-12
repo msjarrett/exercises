@@ -9,11 +9,10 @@ suspend fun Day3a(lines: Flow<String>): Any {
 
   return lines
       .map {
-        println(it)
+        //println(it)
         pattern
             .findAll(it)
             .map { match ->
-              // println(match.value)
               val g = match.groupValues
               g[1].toLong() * g[2].toLong()
             }
