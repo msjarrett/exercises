@@ -4,3 +4,28 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+
+bazel_dep(
+    name = "rules_kotlin",
+    version = "1.9.6",
+)
+
+
+# Maven for Java/Kotlin deps
+bazel_dep(name = "rules_jvm_external", version = "6.3")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    artifacts = [
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0",
+        "junit:junit:4.13.2",
+        "com.facebook:ktfmt:0.53",
+    ],
+)
+
+use_repo(maven, "maven")
+
+
+# rules_lint for formatting.
+bazel_dep(name = "aspect_rules_lint", version = "1.0.6")
+bazel_dep(name = "buildifier_prebuilt", version = "6.3.3")
