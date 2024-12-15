@@ -72,6 +72,7 @@ enum class Direction {
 
   companion object {
     val cardinalDirections = listOf(UP, DOWN, LEFT, RIGHT)
+    val allDirections = listOf(UPLEFT, UP, UPRIGHT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT, LEFT)
   }
 }
 
@@ -87,6 +88,12 @@ data class Point(val x: Int = 0, val y: Int = 0) {
         Direction.LEFT -> Point(x - dist, y)
         Direction.UPLEFT -> Point(x - dist, y - dist)
       }
+
+  fun move(vector: Point) = Point(x + vector.x, y + vector.y)
+
+  fun wrap(width: Int, height: Int) =
+      // Operator rem (%) preserves the coordinate's sign, mod preserves the wrap's sign.
+      Point(x.mod(width), y.mod(height))
 
   fun line(dir: Direction, dist: Int): List<Point> = buildList {
     var p = this@Point
