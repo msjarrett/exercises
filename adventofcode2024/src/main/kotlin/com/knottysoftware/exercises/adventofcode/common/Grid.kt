@@ -56,6 +56,11 @@ fun <T> grid(items: List<List<T>>): Grid<T> {
       if (data[0][0] is Char) {
         return data.map { it.joinToString("") }.joinToString("\n")
       }
+      if (data[0][0] is Boolean) {
+        return data
+            .map { it.map { b -> if (b as Boolean) 'X' else '.' }.joinToString("") }
+            .joinToString("\n")
+      }
       return toList().toString()
     }
   }
@@ -86,6 +91,11 @@ fun <T> mutableGrid(items: List<MutableList<T>>): MutableGrid<T> {
     override fun toString(): String {
       if (data[0][0] is Char) {
         return data.map { it.joinToString("") }.joinToString("\n")
+      }
+      if (data[0][0] is Boolean) {
+        return data
+            .map { it.map { b -> if (b as Boolean) 'X' else '.' }.joinToString("") }
+            .joinToString("\n")
       }
       return toList().toString()
     }
