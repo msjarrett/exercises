@@ -136,3 +136,14 @@ fun <T> Grid<T>.count(filter: (v: T) -> Boolean): Int {
   this.visit { _, _, v -> if (filter(v)) matched++ }
   return matched
 }
+
+fun <T> Grid<T>.find(item: T): Point? {
+  var found: Point? = null
+  visit { x, y, v ->
+    if (v == item) {
+      if (found != null) throw IllegalStateException("Multiple items found")
+      found = Point(x, y)
+    }
+  }
+  return found
+}
