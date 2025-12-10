@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-use std::fmt::Display;
 use std::fs;
 
 pub fn get_input_from_file(path: &str) -> Vec<String> {

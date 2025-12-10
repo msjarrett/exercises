@@ -1,6 +1,7 @@
 use adventofcode2025::input;
+use adventofcode2025::puzzle;
 
-fn day1a(lines: &Vec<String>) -> u16 {
+fn day_a(lines: &Vec<String>) -> u16 {
     let mut pos: i16 = 50;
     let mut zero_count: u16 = 0;
 
@@ -71,7 +72,7 @@ fn dumb_calc_tick(pos: i16, dist: i16) -> (i16, u16) {
 
 // 6257 is wrong
 // 6475 is right
-fn day1b(lines: &Vec<String>) -> u16 {
+fn day_b(lines: &Vec<String>) -> u16 {
     let mut pos: i16 = 50;
     let mut zero_count: u16 = 0;
 
@@ -93,7 +94,7 @@ fn day1b(lines: &Vec<String>) -> u16 {
 
 fn main() {
     let file_lines = input::get_input_from_file("day1.txt");
-    input::run_puzzle(day1b, &file_lines);
+    puzzle::run(day_b, &file_lines);
 }
 
 #[cfg(test)]
@@ -113,12 +114,12 @@ R14
 L82";
 
     #[test]
-    fn day1a_sample() {
-        test::run_sample(day1a, SAMPLE, 3);
+    fn day_a_sample() {
+        test::run_sample(day_a, SAMPLE, 3);
     }
 
     #[test]
-    fn day1b_sample() {
-        test::run_sample(day1b, SAMPLE, 6);
+    fn day_b_sample() {
+        test::run_sample(day_b, SAMPLE, 6);
     }
 }
