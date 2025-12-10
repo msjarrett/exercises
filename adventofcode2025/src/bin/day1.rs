@@ -8,7 +8,7 @@ fn day1a(lines: &Vec<String>) -> u16 {
         let mut dist: i16 = line[1..].parse().unwrap();
         match line.chars().next().unwrap() {
             'L' => dist = -dist,
-            'R' => {},
+            'R' => {}
             other => panic!("Unexpected direction {}", other),
         }
         pos = (pos + dist).rem_euclid(100);
@@ -24,7 +24,7 @@ fn day1a(lines: &Vec<String>) -> u16 {
 fn calc_tick(pos: i16, dist: i16) -> (i16, u16) {
     let mut new_pos = pos + dist;
     let mut zero_count = 0;
-    
+
     while new_pos >= 100 {
         new_pos -= 100;
         zero_count += 1;
@@ -34,7 +34,6 @@ fn calc_tick(pos: i16, dist: i16) -> (i16, u16) {
         zero_count += 1;
     }
 
-
     (new_pos, zero_count)
 }
 
@@ -43,7 +42,7 @@ fn calc_tick(pos: i16, dist: i16) -> (i16, u16) {
 fn dumb_calc_tick(pos: i16, dist: i16) -> (i16, u16) {
     let mut new_pos = pos;
     let mut zero_count = 0;
-    
+
     let mut dist_left = dist;
     while dist_left != 0 {
         if dist_left > 0 {
@@ -57,7 +56,7 @@ fn dumb_calc_tick(pos: i16, dist: i16) -> (i16, u16) {
             100 => {
                 new_pos = 0;
                 zero_count += 1;
-            },
+            }
             0 => {
                 zero_count += 1;
             }
@@ -80,7 +79,7 @@ fn day1b(lines: &Vec<String>) -> u16 {
         let mut dist: i16 = line[1..].parse().unwrap();
         match line.chars().next().unwrap() {
             'L' => dist = -dist,
-            'R' => {},
+            'R' => {}
             other => panic!("Unexpected direction {}", other),
         }
         let (new_pos, new_zeros) = dumb_calc_tick(pos, dist);
@@ -92,8 +91,6 @@ fn day1b(lines: &Vec<String>) -> u16 {
     zero_count
 }
 
-
-
 fn main() {
     let file_lines = input::get_input_from_file("day1.txt");
     input::run_puzzle(day1b, &file_lines);
@@ -104,8 +101,7 @@ mod tests {
     use super::*;
     use adventofcode2025::puzzle::test;
 
-    const SAMPLE: &str =
-"L68
+    const SAMPLE: &str = "L68
 L30
 R48
 L5

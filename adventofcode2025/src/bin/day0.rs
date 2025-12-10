@@ -8,8 +8,6 @@ fn day0b(lines: &Vec<String>) -> u16 {
     (lines.len() * 2) as u16
 }
 
-
-
 fn main() {
     println!("Hello, World!");
     let file_lines = input::get_input_from_file("day0.txt");
@@ -21,8 +19,7 @@ mod tests {
     use super::*;
     use adventofcode2025::puzzle::test;
 
-    const SAMPLE: &str =
-"foo
+    const SAMPLE: &str = "foo
 bar";
 
     #[test]
