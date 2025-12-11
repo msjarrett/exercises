@@ -11,8 +11,9 @@ fn day_b(lines: &Vec<String>) -> u16 {
 
 fn main() {
     println!("Hello, World!");
-    let file_lines = input::get_input_from_file("day0.txt");
-    puzzle::run(day_a, &file_lines);
+    let lines = input::get_input_from_file("day0.txt");
+    //let lines = input::get_input_from_literal("foo bar");
+    puzzle::run(day_a, day_b, &lines);
 }
 
 #[cfg(test)]
@@ -20,7 +21,9 @@ mod tests {
     use super::*;
     use adventofcode2025::puzzle::test;
 
-    const SAMPLE: &str = "foo
+    #[rustfmt::skip]
+    const SAMPLE: &str =
+"foo
 bar";
 
     #[test]
