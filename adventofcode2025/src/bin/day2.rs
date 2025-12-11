@@ -1,6 +1,15 @@
-use adventofcode2025::input;
 use adventofcode2025::puzzle;
 use std::ops::RangeInclusive;
+
+const YEAR: u16 = 2025;
+const DAY: u8 = 2;
+
+#[allow(dead_code)]
+#[rustfmt::skip]
+const SAMPLE: &str =
+"11-22,95-115,998-1012,1188511880-1188511890,222220-222224,
+1698522-1698528,446443-446449,38593856-38593862,565653-565659,
+824824821-824824827,2121212118-2121212124";
 
 fn parse(lines: &Vec<String>) -> Vec<RangeInclusive<u64>> {
     let mut ranges = Vec::new();
@@ -88,23 +97,13 @@ fn day_b(lines: &Vec<String>) -> u64 {
 }
 
 fn main() {
-    let lines = input::get_input_from_literal(
-        "18623-26004,226779-293422,65855-88510,868-1423,248115026-248337139,903911-926580,97-121,67636417-67796062,24-47,6968-10197,193-242,3769-5052,5140337-5233474,2894097247-2894150301,979582-1016336,502-646,9132195-9191022,266-378,58-91,736828-868857,622792-694076,6767592127-6767717303,2920-3656,8811329-8931031,107384-147042,941220-969217,3-17,360063-562672,7979763615-7979843972,1890-2660,23170346-23308802",
-    );
-
-    puzzle::run(day_a, day_b, &lines);
+    puzzle::run(day_a, day_b, YEAR, DAY);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use adventofcode2025::puzzle::test;
-
-    #[rustfmt::skip]
-    const SAMPLE: &str =
-"11-22,95-115,998-1012,1188511880-1188511890,222220-222224,
-1698522-1698528,446443-446449,38593856-38593862,565653-565659,
-824824821-824824827,2121212118-2121212124";
 
     #[test]
     fn day_a_sample() {
@@ -114,5 +113,15 @@ mod tests {
     #[test]
     fn day_b_sample() {
         test::run_sample(day_b, SAMPLE, 4174379265);
+    }
+
+    #[test]
+    fn day_a_input() {
+        test::run_input(day_a, YEAR, DAY, 19386344315);
+    }
+
+    #[test]
+    fn day_b_input() {
+        test::run_input(day_b, YEAR, DAY, 34421651192);
     }
 }

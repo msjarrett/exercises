@@ -1,5 +1,15 @@
-use adventofcode2025::input;
 use adventofcode2025::puzzle;
+
+const YEAR: u16 = 2025;
+const DAY: u8 = 3;
+
+#[allow(dead_code)]
+#[rustfmt::skip]
+const SAMPLE: &str =
+"987654321111111
+811111111111119
+234234234234278
+818181911112111";
 
 fn max_pos(bank: &str) -> usize {
     let mut max_char = '0';
@@ -45,22 +55,13 @@ fn day_b(lines: &Vec<String>) -> u64 {
 }
 
 fn main() {
-    println!("Hello, World!");
-    let lines = input::get_input_from_file("day3.txt");
-    puzzle::run(day_a, day_b, &lines);
+    puzzle::run(day_a, day_b, YEAR, DAY);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use adventofcode2025::puzzle::test;
-
-    #[rustfmt::skip]
-    const SAMPLE: &str = 
-"987654321111111
-811111111111119
-234234234234278
-818181911112111";
 
     #[test]
     fn day_a_sample() {
@@ -70,5 +71,15 @@ mod tests {
     #[test]
     fn day_b_sample() {
         test::run_sample(day_b, SAMPLE, 3121910778619);
+    }
+
+    #[test]
+    fn day_a_input() {
+        test::run_input(day_a, YEAR, DAY, 17107);
+    }
+
+    #[test]
+    fn day_b_input() {
+        test::run_input(day_b, YEAR, DAY, 169349762274117);
     }
 }
