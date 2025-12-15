@@ -64,22 +64,22 @@ mod tests {
     use adventofcode2025::puzzle::test;
 
     #[test]
-    fn day_a_sample() {
+    fn day3_a_sample() {
         test::run_sample(day_a, SAMPLE, 357);
     }
 
     #[test]
-    fn day_b_sample() {
+    fn day3_b_sample() {
         test::run_sample(day_b, SAMPLE, 3121910778619);
     }
 
     #[test]
-    fn day_a_input() {
+    fn day3_a_input() {
         test::run_input(day_a, YEAR, DAY, 17107);
     }
 
     #[test]
-    fn day_b_input() {
+    fn day3_b_input() {
         test::run_input(day_b, YEAR, DAY, 169349762274117);
     }
 }

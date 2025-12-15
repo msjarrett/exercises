@@ -106,22 +106,22 @@ mod tests {
     use adventofcode2025::puzzle::test;
 
     #[test]
-    fn day_a_sample() {
+    fn day2_a_sample() {
         test::run_sample(day_a, SAMPLE, 1227775554);
     }
 
     #[test]
-    fn day_b_sample() {
+    fn day2_b_sample() {
         test::run_sample(day_b, SAMPLE, 4174379265);
     }
 
     #[test]
-    fn day_a_input() {
+    fn day2a_input() {
         test::run_input(day_a, YEAR, DAY, 19386344315);
     }
 
     #[test]
-    fn day_b_input() {
+    fn day2_b_input() {
         test::run_input(day_b, YEAR, DAY, 34421651192);
     }
 }
